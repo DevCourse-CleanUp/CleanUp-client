@@ -1,5 +1,5 @@
-import {createGlobalStyle} from 'styled-components';
-import { getTheme } from './globalStyle';
+import { createGlobalStyle } from "styled-components";
+import { getTheme } from "./theme";
 
 export const GlobalStyle = createGlobalStyle`
     body {
@@ -14,9 +14,5 @@ export const GlobalStyle = createGlobalStyle`
 
     h2 {
         margin: 0;
-    }
-
-    * {
-        color: ${getTheme().color.text1};
     }
 `;
