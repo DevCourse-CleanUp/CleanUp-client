@@ -23,8 +23,8 @@ function Button({ children, size, scheme, disabled, onClick }: Props) {
 }
 
 const ButtonStyle = styled.button<Omit<Props, 'children'>>`
-  font-size: ${({ theme, size }) => theme.button[size].fontSize};
-  padding: ${({ theme, size }) => theme.button[size].padding};
+  font-size: ${({ theme, size }) => theme.buttonSize[size].fontSize};
+  padding: ${({ theme, size }) => theme.buttonSize[size].padding};
   color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};
   background-color: ${({ theme, scheme }) => theme.buttonScheme[scheme].backgroundColor};
   border: 0;
