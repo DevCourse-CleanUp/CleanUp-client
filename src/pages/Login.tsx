@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import InputBox from "../components/common/InputBox";
 import Button from "../components/common/Button";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     return (
@@ -19,9 +20,9 @@ const Login = () => {
                         Login
                     </Button>
                 </div>
-                <div>
+                <Link to={"/signup"}>
                     <p>회원가입</p>
-                </div>
+                </Link>
             </LoginStyle>
         </>
     )
