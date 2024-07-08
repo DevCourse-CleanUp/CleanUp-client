@@ -2,24 +2,36 @@ import styled from "styled-components";
 import InputBox from "../components/common/InputBox";
 import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
+interface LoginProps {
+    email: string;
+    password: string;
+}
 
 const Login = () => {
+    const {register, handleSubmit, formState: {errors}} = useForm<LoginProps>();
+ 
+    const onSubmit = (data: LoginProps) => {
+        console.log(data);
+    }
+
     return (
         <>
             <LoginStyle>
-                <form className="form">
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="email">
-                        <InputBox placeholder="이메일" inputType="email" />
+                        <InputBox placeholder="이메일" inputType="email" {...register('email', {required: true})} />
                     </fieldset>
                     <fieldset className="password">
-                        <InputBox placeholder="비밀번호" inputType="password" />
+                        <InputBox placeholder="비밀번호" inputType="password" {...register('password', {required: true})} />
+                    </fieldset>
+                    <fieldset className="button">
+                        <Button size='large' scheme="abled">
+                            Login
+                        </Button>
                     </fieldset>
                 </form>
-                <div className="button">
-                    <Button size='large' scheme="abled">
-                        Login
-                    </Button>
-                </div>
                 <Link to={"/signup"}>
                     <p>회원가입</p>
                 </Link>
@@ -38,6 +50,8 @@ const LoginStyle = styled.div`
     fieldset {
         display: flex;
         flex-direction: row;
+        align-items: center;
+        justify-content: center;
         border: none;
 
         input {
@@ -45,6 +59,11 @@ const LoginStyle = styled.div`
             height: 45px;
             text-align: center;
             border: 2px solid #DDD;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 150px;
         }
 
         svg {
