@@ -3,8 +3,9 @@ import InputBox from "../components/common/InputBox";
 import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import useLoginStore from "../store/loginStore";
 import { FcFullTrash } from "react-icons/fc";
+import { useRecoilState } from "recoil";
+import { loginState } from "../store/loginStore";
 
 interface LoginProps {
     email: string;
@@ -12,12 +13,13 @@ interface LoginProps {
 }
 
 const Login = () => {
-    const {isLoggedIn, setIsLoggedIn} = useLoginStore();
+    const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
 
     const {register, handleSubmit, watch} = useForm<LoginProps>();
  
     const onSubmit = (data: LoginProps) => {
-        // 로그인 
+        // 모델, hook, api 작업 차후에
+        // 로그인 hook => setIsLoggedIn(true)
         console.log(data);
     }
 
