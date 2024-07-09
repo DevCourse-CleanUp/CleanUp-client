@@ -21,19 +21,19 @@ const Login = () => {
             <LoginStyle>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="email">
-                        <InputBox placeholder="이메일" inputType="email" {...register('email', {required: true})} />
+                        <InputBox placeholder="이메일" inputType="email" {...register("email", {required: true})} />
                     </fieldset>
                     <fieldset className="password">
-                        <InputBox placeholder="비밀번호" inputType="password" {...register('password', {required: true})} />
+                        <InputBox placeholder="비밀번호" inputType="password" {...register("password", {required: true})} />
                     </fieldset>
                     <fieldset className="button">
-                        <Button size='large' scheme="abled" type="submit" disabled={!watch("email") || !watch("password")}>
-                            {'Login'}
+                        <Button size="large" scheme="abled" type="submit" disabled={!watch("email") || !watch("password")}>
+                            {"Login"}
                         </Button>
                     </fieldset>
                 </form>
                 <Link to={"/signup"}>
-                    {'회원가입'}
+                    {"회원가입"}
                 </Link>
             </LoginStyle>
         </>
