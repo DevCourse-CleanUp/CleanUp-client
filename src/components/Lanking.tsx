@@ -4,7 +4,6 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ArrowButton from './common/ArrowButton';
-import { GoChevronRight } from 'react-icons/go';
 
 function Lanking() {
   const settings = {
@@ -33,13 +32,13 @@ function Lanking() {
         <SliderWrapper>
           <Slider {...settings}>
             <div>
-              <p>1위<GoChevronRight></GoChevronRight></p>
+              <p>1위<ArrowButton direction="next"/></p>
             </div>
             <div>
-              <p>2위</p>
+              <p>2위<ArrowButton direction="next"/></p>
             </div>
             <div>
-              <p>3위</p>
+              <p>3위<ArrowButton direction="next"/></p>
             </div>
           </Slider>
         </SliderWrapper>
@@ -73,9 +72,9 @@ const LankingStyle = styled.div`
 
   background: pink;
   width: 100%;
-  height: 400px;
-  max-width: 400px;
-  margin: 0 auto;
+  height: 300px;
+  max-width: 300px;
+  margin: auto;
 
   p {
     display: flex;
@@ -90,17 +89,26 @@ const LankingTitleStyle = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 20px 0 20px 0;
 `;
 
 const SliderWrapper = styled.div`
   .slick-prev,
   .slick-next {
-    z-index: 1; 
+  visibility: visible;
+   opacity: 1;
     &:before {
-      color: black;
       display: none;
     }
   }
-`;
+
+  .slick-prev {
+    left: -50px; 
+  }
+
+  .slick-next {
+    right: -50px;
+`; 
+
 
 export default Lanking;
