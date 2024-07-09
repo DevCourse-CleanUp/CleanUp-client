@@ -4,6 +4,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ArrowButton from './common/ArrowButton';
+import Button from './common/Button';
+import { GoArrowRight } from 'react-icons/go';
+import { Link } from 'react-router-dom';
 
 function Lanking() {
   const settings = {
@@ -16,8 +19,8 @@ function Lanking() {
     centerPadding: '10px', // 중앙 컨텐츠 padding 값
     arrows: true,
     autoplay: true,
-    prevArrow:<ArrowButton direction="prev" />,
-    nextArrow:<ArrowButton direction="next" />,
+    prevArrow: <ArrowButton direction="prev" />,
+    nextArrow: <ArrowButton direction="next" />,
   };
 
   return (
@@ -32,38 +35,29 @@ function Lanking() {
         <SliderWrapper>
           <Slider {...settings}>
             <div>
-              <p>1위<ArrowButton direction="next"/></p>
+              <p>1위</p>
             </div>
             <div>
-              <p>2위<ArrowButton direction="next"/></p>
+              <p>2위</p>
             </div>
             <div>
-              <p>3위<ArrowButton direction="next"/></p>
+              <p>3위</p>
             </div>
           </Slider>
         </SliderWrapper>
       </LankingStyle>
+      <ButtonStyle>
+        <button>
+          <Link to={``}>
+            문제 풀러가기
+            <GoArrowRight />
+          </Link>
+        </button>
+      </ButtonStyle>
+      {/* <Button size="medium" scheme="abled" onClick={()=>{}}>문제 풀러가기<GoArrowRight/></Button> */}
     </>
   );
 }
-
-// const PrevArrow = (props) => {
-//   const { className, style, onClick } = props;
-//   return (
-//     <div className={className} style={{ ...style, display: "block" }} onClick={onClick}>
-//       <GoChevronLeft />
-//     </div>
-//   );
-// };
-
-// const NextArrow = (props) => {
-//   const { className, style, onClick } = props;
-//   return (
-//     <div className={className} style={{ ...style, display: "block" }} onClick={onClick}>
-//       <GoChevronRight />
-//     </div>
-//   );
-// };
 
 const LankingStyle = styled.div`
   display: flex;
@@ -93,10 +87,9 @@ const LankingTitleStyle = styled.div`
 `;
 
 const SliderWrapper = styled.div`
+  position: relative; 
   .slick-prev,
   .slick-next {
-  visibility: visible;
-   opacity: 1;
     &:before {
       display: none;
     }
@@ -108,7 +101,20 @@ const SliderWrapper = styled.div`
 
   .slick-next {
     right: -50px;
-`; 
+`;
 
+const ButtonStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+
+  a {
+   text-decoration: none;
+  }
+
+  svg {
+    margin-left: 6px;
+  }
+`;
 
 export default Lanking;
