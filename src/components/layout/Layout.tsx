@@ -2,17 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { Header } from "../common/Header";
 import { Footer } from "../common/Footer";
-import useLoginStore from "../../store/loginStore";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  const {isLoggedIn} = useLoginStore();
   return (
     <>
-      {isLoggedIn && (<Header />)}
+      <Header />
       <LayoutStyle>{children}</LayoutStyle>
       <Footer />
     </>

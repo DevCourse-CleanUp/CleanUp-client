@@ -1,11 +1,19 @@
 import { FcFullTrash } from "react-icons/fc";
+import useLoginStore from "../../store/loginStore";
 import { styled } from "styled-components";
 
 export const Header = () => {
+  const {isLoggedIn} = useLoginStore();
   return (
     <HeaderStyle>
-      <FcFullTrash size="70" />
-      <h1>Clean Up</h1>
+      {
+        isLoggedIn && (
+          <>
+            <FcFullTrash size="70" />
+            <h1>Clean Up</h1>
+          </>
+        )
+      }
     </HeaderStyle>
   );
 };
