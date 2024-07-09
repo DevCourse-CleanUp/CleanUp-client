@@ -3,6 +3,7 @@ import InputBox from "../components/common/InputBox";
 import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useLoginStore from "../store/loginStore";
 
 interface LoginProps {
     email: string;
@@ -10,9 +11,12 @@ interface LoginProps {
 }
 
 const Login = () => {
+    const {isLoggedIn, setIsLoggedIn} = useLoginStore();
+
     const {register, handleSubmit, watch} = useForm<LoginProps>();
  
     const onSubmit = (data: LoginProps) => {
+        // 로그인 
         console.log(data);
     }
 
