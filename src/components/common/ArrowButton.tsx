@@ -20,7 +20,7 @@ const ArrowButtonStyle = styled.button`
   width: 50px;
   height: 50px;
 
-  color: hotpink;
+  color: grey;
   background: transparent;
   border: none;
   cursor: pointer;
