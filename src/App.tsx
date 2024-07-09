@@ -2,6 +2,7 @@ import { CleanUpThemeProvider } from "./context/themeContext";
 import { Layout } from "./components/layout/Layout";
 import { Home } from "./pages/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,9 @@ function App() {
   return (
     <div className="App">
       <CleanUpThemeProvider>
-        <RouterProvider router={router} />
+        <RecoilRoot>
+          <RouterProvider router={router} />
+        </RecoilRoot>
       </CleanUpThemeProvider>
     </div>
   );
