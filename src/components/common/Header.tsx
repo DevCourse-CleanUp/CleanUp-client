@@ -1,9 +1,11 @@
 import { FcFullTrash } from "react-icons/fc";
-import useLoginStore from "../../store/loginStore";
+import { loginState } from "../../store/loginStore";
+
 import { styled } from "styled-components";
+import { useRecoilValue } from "recoil";
 
 export const Header = () => {
-  const {isLoggedIn} = useLoginStore();
+  const isLoggedIn = useRecoilValue(loginState);
   return (
     <HeaderStyle>
       {
