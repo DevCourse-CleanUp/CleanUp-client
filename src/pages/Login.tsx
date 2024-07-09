@@ -10,7 +10,7 @@ interface LoginProps {
 }
 
 const Login = () => {
-    const {register, handleSubmit, formState: {errors}} = useForm<LoginProps>();
+    const {register, handleSubmit, watch} = useForm<LoginProps>();
  
     const onSubmit = (data: LoginProps) => {
         console.log(data);
@@ -27,13 +27,13 @@ const Login = () => {
                         <InputBox placeholder="비밀번호" inputType="password" {...register('password', {required: true})} />
                     </fieldset>
                     <fieldset className="button">
-                        <Button size='large' scheme="abled">
-                            Login
+                        <Button size='large' scheme="abled" type="submit" disabled={!watch("email") || !watch("password")}>
+                            {'Login'}
                         </Button>
                     </fieldset>
                 </form>
                 <Link to={"/signup"}>
-                    <p>회원가입</p>
+                    {'회원가입'}
                 </Link>
             </LoginStyle>
         </>
@@ -71,8 +71,9 @@ const LoginStyle = styled.div`
         }
     }
 
-    p {
+    a {
         color: ${({theme}) => theme.color.text2};
+        text-decoration: none;
     }
 `;
 
