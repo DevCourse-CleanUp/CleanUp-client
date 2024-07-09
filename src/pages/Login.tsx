@@ -4,6 +4,7 @@ import Button from "../components/common/Button";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useLoginStore from "../store/loginStore";
+import { FcFullTrash } from "react-icons/fc";
 
 interface LoginProps {
     email: string;
@@ -23,6 +24,10 @@ const Login = () => {
     return (
         <>
             <LoginStyle>
+                <div className="title">
+                    <FcFullTrash size="200" />
+                    <h1>Clean Up</h1>
+                </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="email">
                         <InputBox placeholder="이메일" inputType="email" {...register("email", {required: true})} />
@@ -50,6 +55,28 @@ const LoginStyle = styled.div`
     align-items: center;
     flex-direction: column;
     gap: 12px;
+
+    .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: 50%;
+        margin-bottom: 0;
+        padding-bottom: 0;
+
+        svg {
+            height: 140px;
+        }
+
+        h1 {
+            font-size: 6rem;
+            color: ${({theme}) => theme.headerText.default.color};
+            font-weight: ${({theme}) => theme.headerText.default.fontWeight};
+            text-shadow: -3px 0px #bbb, 0px 3px #bbb, 3px 0px #bbb, 0px -3px #bbb;
+            margin-bottom: 20px;
+        }
+    }
 
     fieldset {
         display: flex;
