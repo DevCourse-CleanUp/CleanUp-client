@@ -1,16 +1,12 @@
+import { atom } from "recoil";
 
-// interface LoginStore {
-//     isLoggedIn: boolean;
-//     setIsLoggedIn: (value: boolean) => void;
-// }
 
-// const useLoginStore = create<LoginStore>(
-//     (set) => ({
-//         isLoggedIn: false,
-//         setIsLoggedIn: (value: boolean) => {
-//             set(() => ({isLoggedIn: value}))
-//         }
-//     })
-// )
+interface LoginStore {
+    isLoggedIn: boolean;
+    setIsLoggedIn: (value: boolean) => void;
+}
 
-// export default useLoginStore;
+export const loginState = atom({
+    key: "isLoggedIn",
+    default: false,
+})
