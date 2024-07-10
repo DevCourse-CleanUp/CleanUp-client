@@ -1,11 +1,21 @@
 import { FcFullTrash } from "react-icons/fc";
+import { loginState } from "../../store/loginAtom";
+
 import { styled } from "styled-components";
+import { useRecoilValue } from "recoil";
 
 export const Header = () => {
+  const isLoggedIn = useRecoilValue(loginState);
   return (
     <HeaderStyle>
-      <FcFullTrash size="70" />
-      <h1>Clean Up</h1>
+      {
+        isLoggedIn && (
+          <>
+            <FcFullTrash size="70" />
+            <h1>Clean Up</h1>
+          </>
+        )
+      }
     </HeaderStyle>
   );
 };
