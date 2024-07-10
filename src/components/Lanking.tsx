@@ -3,8 +3,6 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import ArrowButton from './common/ArrowButton';
-import Button from './common/Button';
 import { GoArrowRight } from 'react-icons/go';
 import { Link } from 'react-router-dom';
 
@@ -19,8 +17,6 @@ function Lanking() {
     centerPadding: '10px', // 중앙 컨텐츠 padding 값
     arrows: true,
     autoplay: true,
-    prevArrow: <ArrowButton direction="prev" />,
-    nextArrow: <ArrowButton direction="next" />,
   };
 
   return (
@@ -90,9 +86,9 @@ const SliderWrapper = styled.div`
   position: relative; 
   .slick-prev,
   .slick-next {
-    &:before {
-      display: none;
-    }
+    // &:before {
+    //   display: none;
+    // }
   }
 
   .slick-prev {
