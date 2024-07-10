@@ -1,5 +1,5 @@
 import { FcFullTrash } from "react-icons/fc";
-import { loginState } from "../../store/loginStore";
+import { loginState } from "../../store/loginAtom";
 
 import { styled } from "styled-components";
 import { useRecoilValue } from "recoil";

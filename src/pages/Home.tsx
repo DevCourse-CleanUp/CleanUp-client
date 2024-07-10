@@ -1,6 +1,6 @@
 import React from 'react'
 import Login from './Login'
-import { loginState } from '../store/loginStore'
+import { loginState } from '../store/loginAtom'
 import { useRecoilValue } from 'recoil';
 
 export const Home = () => {
