@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import Button from '../components/common/Button';
-import InputBox from '../components/common/InputBox';
+import InputTextArea from '../components/Problem/InputTextArea';
 
 const problem = {
   id: 1,
@@ -25,7 +25,7 @@ export const Problem = () => {
           <p>#pond &#123;</p>
           <div>
           <p>display: flex;</p>
-            <StyledInputBox type="text">{/* <p>{problem.answer}</p> */}</StyledInputBox>
+            <StyledInputBox>{/* <p>{problem.answer}</p> */}</StyledInputBox>
           </div>
           <p>&#125;</p>
 
@@ -93,18 +93,10 @@ const ProblemStyle = styled.div`
   }
 `;
 
-const StyledInputBox = styled(InputBox)`
+const StyledInputBox = styled(InputTextArea)`
   display: flex;
-
-  align-items: center;
   width: 100%;
   padding: 0px;
-  overflow: auto;
-  background: #fff;
-
-  border: none;
-  border-radius: 0px;
-  outline: none;
 
   box-sizing: border-box; /*요소의 전체 너비와 높이에 패딩과 테두리가 포함되어 있는지 확인*/
 `;
