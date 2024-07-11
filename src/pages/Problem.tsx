@@ -1,6 +1,8 @@
 import { styled } from 'styled-components';
 import Button from '../components/common/Button';
 import InputTextArea from '../components/Problem/InputTextArea';
+import { GoChevronLeft, GoChevronRight, GoHeartFill } from 'react-icons/go';
+import { FcEmptyTrash, FcLikePlaceholder } from 'react-icons/fc';
 
 const problem = {
   id: 1,
@@ -16,15 +18,25 @@ export const Problem = () => {
   return (
     <ProblemStyle>
       <div className="problemZone">
-        <div className="contents">
+        <div className="title">
           <h2 className="title">{problem.title}</h2>
-          <p className="content">{problem.content}</p>
+          <div className="stageButton">
+            <Button size="small" scheme="abled">
+              <GoChevronLeft />
+            </Button>
+            <p>&nbsp;&nbsp; 단계 1 of 100 &nbsp;&nbsp;</p>
+            <Button size="small" scheme="abled">
+              <GoChevronRight />
+            </Button>
+          </div>
         </div>
+
+        <p className="content">{problem.content}</p>
 
         <div className="inputCodeBox">
           <p>#pond &#123;</p>
           <div>
-          <p>display: flex;</p>
+            <p>display: flex;</p>
             <StyledInputBox>{/* <p>{problem.answer}</p> */}</StyledInputBox>
           </div>
           <p>&#125;</p>
@@ -36,7 +48,12 @@ export const Problem = () => {
       </div>
 
       <div className="moveZone">
-        <p>사아자카타</p>
+        <div>
+          <GoHeartFill className="trashItem" />
+        </div>
+        <div>
+          <FcEmptyTrash className="emptyTrash" />
+        </div>
       </div>
     </ProblemStyle>
   );
@@ -52,10 +69,43 @@ const ProblemStyle = styled.div`
   }
 
   .problemZone {
-    background: lightgreen;
+    background: #ffbebc;
     padding: 20px;
 
-    .contents {
+    .stageButton {
+      display: inline-flex;
+      width: auto;
+      background: #5ef0f9;
+
+      p,
+      svg {
+        display: flex;
+        align-items: center;
+        margin: 0px;
+
+        background: #5ef0f9;
+      }
+
+      p {
+        color: grey;
+      }
+
+      svg {
+        color: #fff;
+      }
+    }
+
+    .title {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      h2 {
+        padding-left: 12px;
+      }
+    }
+
+    .content {
       padding: 10px;
     }
 
@@ -75,8 +125,8 @@ const ProblemStyle = styled.div`
       }
 
       p {
-      align-self: flex-start;
-      margin: 10px 0px 10px 0px;
+        align-self: flex-start;
+        margin: 10px 0px 10px 0px;
       }
 
       Button {
@@ -89,7 +139,22 @@ const ProblemStyle = styled.div`
   }
 
   .moveZone {
-    background: blue;
+    display: flex;
+    justify-content: space-between;
+    background: #b6c2b9;
+
+    .trashItem {
+      padding: 30px 30px 20px 30px;
+      width: 70px;
+      height: 70px;
+      color: #ffbebc;
+    }
+
+    .emptyTrash {
+      padding: 20px 30px 20px 30px;
+      width: 100px;
+      height: 100px;
+    }
   }
 `;
 
@@ -100,6 +165,5 @@ const StyledInputBox = styled(InputTextArea)`
 
   box-sizing: border-box; /*요소의 전체 너비와 높이에 패딩과 테두리가 포함되어 있는지 확인*/
 `;
-
 
 export default Problem;
