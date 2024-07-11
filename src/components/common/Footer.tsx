@@ -24,7 +24,6 @@ const Footer = () => {
 
 const FooterStyle = styled.footer`
   bottom: 0px;
-  // position: absolute;
   position: fixed;
   height: 16%;
 
