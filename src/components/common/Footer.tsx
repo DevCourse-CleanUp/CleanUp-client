@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const Footer = () => {
+const Footer = () => {
   return (
     <FooterStyle>
       <nav>
@@ -52,3 +52,5 @@ const FooterStyle = styled.footer`
     }
   }
 `;
+
+export default Footer;

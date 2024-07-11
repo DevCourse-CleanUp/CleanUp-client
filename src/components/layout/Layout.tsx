@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Header } from "../common/Header";
-import { Footer } from "../common/Footer";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Header />
@@ -22,3 +22,5 @@ const LayoutStyle = styled.main`
   margin: 0 auto;
   padding: 20px 0;
 `;
+
+export default Layout;
