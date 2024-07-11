@@ -18,6 +18,7 @@ const InputCodeBoxStyle = styled.div`
 display: flex;
 jusfify-content: center;
 background: #fff;
+height: 150px;
 `;
 
 export default InputCodeBox;
