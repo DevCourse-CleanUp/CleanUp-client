@@ -17,7 +17,9 @@ export const Problem = () => {
       <div className="problemZone">
         <h2 className="title">{problem.title}</h2>
         <p className="content">{problem.content}</p>
-        <InputCodeBox>{problem.answer}</InputCodeBox>
+        <div className="inputCodeBox">
+          <InputCodeBox>{problem.answer}</InputCodeBox>
+        </div>
       </div>
       <div className="moveZone">
         <p>사아자카타</p>
@@ -40,13 +42,19 @@ const ProblemStyle = styled.div`
     background: coral;
 
     P, h2 {
-      padding: 20px;
+      padding: 20px 20px 0px 20px;
     }
   }
 
   .moveZone {
     background: blue;
   }
+
+  .inputCodeBox {
+    padding: 20px;
+  }
 `;
+
+
 
 export default Problem;
