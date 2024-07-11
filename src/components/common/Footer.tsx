@@ -29,7 +29,7 @@ const FooterStyle = styled.footer`
 
   width: 100%;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 20px 0px 10px 0px;
   border-top: 1px solid ${({ theme }) => theme.color.primary};
   background-color: ${({ theme }) => theme.color.thirdary};
 
