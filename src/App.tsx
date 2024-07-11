@@ -1,9 +1,10 @@
-import { CleanUpThemeProvider } from "./context/themeContext";
-import { Layout } from "./components/layout/Layout";
-import { Home } from "./pages/Home";
+import CleanUpThemeProvider from "./context/themeContext";
+import Layout from "./components/layout/Layout";
+import Home from "./pages/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Lanking from "./components/Lanking";
 import { RecoilRoot } from "recoil";
+import Signup from "./pages/Signup";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
@@ -13,16 +14,16 @@ const router = createBrowserRouter([
         <Home />
       </Layout>
     ),
-    // errorElement: <Error />,
+    errorElement: <Error />,
   },
   {
-    path: "/lanking",
+    path: "/signup",
     element: (
       <Layout>
-        <Lanking />
+        <Signup />
       </Layout>
     ),
-    // errorElement: <Error />,
+    errorElement: <Error />,
   },
 ]);
 

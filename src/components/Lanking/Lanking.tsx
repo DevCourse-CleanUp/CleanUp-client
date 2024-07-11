@@ -1,12 +1,12 @@
-import { styled } from 'styled-components';
-import React from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { GoArrowRight } from 'react-icons/go';
-import { Link } from 'react-router-dom';
+import { styled } from "styled-components";
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { GoArrowRight } from "react-icons/go";
+import { Link } from "react-router-dom";
 
-function Lanking() {
+const Lanking = () => {
   const settings = {
     // dots: true, //갯수 표시 점
     infinite: true, //무한 캐러셀
@@ -14,7 +14,7 @@ function Lanking() {
     slidesToShow: 1, //화면에 보이는 컨텐츠 수
     slidesToScroll: 1, //스크롤 시 넘어가는 컨텐츠 수
     centerMode: true, // 현재 컨텐츠 가운데 정렬
-    centerPadding: '10px', // 중앙 컨텐츠 padding 값
+    centerPadding: "10px", // 중앙 컨텐츠 padding 값
     arrows: true,
     autoplay: true,
   };
@@ -53,7 +53,7 @@ function Lanking() {
       {/* <Button size="medium" scheme="abled" onClick={()=>{}}>문제 풀러가기<GoArrowRight/></Button> */}
     </>
   );
-}
+};
 
 const LankingStyle = styled.div`
   display: flex;
@@ -83,7 +83,7 @@ const LankingTitleStyle = styled.div`
 `;
 
 const SliderWrapper = styled.div`
-  position: relative; 
+  position: relative;
   .slick-prev,
   .slick-next {
     // &:before {
@@ -92,11 +92,12 @@ const SliderWrapper = styled.div`
   }
 
   .slick-prev {
-    left: -50px; 
+    left: -50px;
   }
 
   .slick-next {
     right: -50px;
+  }
 `;
 
 const ButtonStyle = styled.div`
@@ -105,7 +106,7 @@ const ButtonStyle = styled.div`
   padding-top: 20px;
 
   a {
-   text-decoration: none;
+    text-decoration: none;
   }
 
   svg {

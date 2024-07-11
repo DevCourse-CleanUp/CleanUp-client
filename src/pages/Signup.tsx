@@ -1,49 +1,61 @@
 import styled from "styled-components";
 import InputBox from "../components/common/InputBox";
 import Button from "../components/common/Button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { FcFullTrash } from "react-icons/fc";
-import { useSetRecoilState } from "recoil";
-import { loginState } from "../atoms/loginAtom";
 import { useAlert } from "../hooks/useAlert";
 
-interface LoginProps {
+export interface SignupProps {
+  nickname: string;
   email: string;
   password: string;
 }
 
-const Login = () => {
-  const setIsLoggedIn = useSetRecoilState(loginState);
-  const { register, handleSubmit, watch } = useForm<LoginProps>();
-
+const Signup = () => {
+  const navigate = useNavigate();
   const showAlert = useAlert();
 
-  const onSubmit = (data: LoginProps) => {
-    const email = localStorage.getItem("email");
-    const password = localStorage.getItem("password");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<SignupProps>();
 
-    if (email === data.email && password === data.password) {
-      setIsLoggedIn(true);
-    } else {
-      showAlert("잘못된 계정입니다.");
-    }
+  const onSubmit = (data: SignupProps) => {
+    localStorage.setItem("nickname", data.nickname);
+    localStorage.setItem("email", data.email);
+    localStorage.setItem("password", data.password);
+    showAlert("회원가입이 완료되었습니다.");
+    navigate("/");
   };
 
   return (
-    <LoginStyle>
+    <SignupStyle>
       <div className="container">
         <div className="title">
-          <FcFullTrash size="200" />
-          <h1>Clean Up</h1>
+          <h1>회원가입</h1>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <fieldset className="nickname">
+            <InputBox
+              placeholder="닉네임"
+              inputType="text"
+              {...register("nickname", { required: true })}
+            />
+            {errors.nickname && (
+              <p className="error-text">닉네임을 입력해주세요.</p>
+            )}
+          </fieldset>
           <fieldset className="email">
             <InputBox
               placeholder="이메일"
               inputType="email"
               {...register("email", { required: true })}
             />
+            {errors.email && (
+              <p className="error-text">이메일을 입력해주세요.</p>
+            )}
           </fieldset>
           <fieldset className="password">
             <InputBox
@@ -51,25 +63,29 @@ const Login = () => {
               inputType="password"
               {...register("password", { required: true })}
             />
+            {errors.password && (
+              <p className="error-text">비밀번호를 입력해주세요.</p>
+            )}
           </fieldset>
           <fieldset className="button">
             <Button
               size="large"
               scheme="abled"
               type="submit"
-              disabled={!watch("email") || !watch("password")}
+              disabled={
+                !watch("nickname") || !watch("email") || !watch("password")
+              }
             >
-              {"Login"}
+              회원가입
             </Button>
           </fieldset>
         </form>
-        <Link to={"/signup"}>{"회원가입"}</Link>
       </div>
-    </LoginStyle>
+    </SignupStyle>
   );
 };
 
-const LoginStyle = styled.div`
+const SignupStyle = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -141,4 +157,4 @@ const LoginStyle = styled.div`
   }
 `;
 
-export default Login;
+export default Signup;

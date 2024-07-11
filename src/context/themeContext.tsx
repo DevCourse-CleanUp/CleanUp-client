@@ -15,11 +15,7 @@ export const state = {
 
 export const ThemeContext = createContext<State>(state);
 
-export const CleanUpThemeProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+const CleanUpThemeProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <ThemeContext.Provider value={state}>
       <ThemeProvider theme={getTheme()}>
@@ -29,3 +25,5 @@ export const CleanUpThemeProvider = ({
     </ThemeContext.Provider>
   );
 };
+
+export default CleanUpThemeProvider;
