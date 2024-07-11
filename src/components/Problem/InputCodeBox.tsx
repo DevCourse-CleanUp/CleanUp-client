@@ -19,6 +19,7 @@ display: flex;
 jusfify-content: center;
 background: #fff;
 height: 150px;
+overflow: auto;
 `;
 
 export default InputCodeBox;
