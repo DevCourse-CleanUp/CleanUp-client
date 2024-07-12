@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import Button from "../components/common/Button";
 import { FaCheck } from "react-icons/fa";
-import { GoDotFill } from "react-icons/go";
+import { GoDotFill, GoTriangleRight } from "react-icons/go";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FilterButton from "../components/problems/FilterButton";
 
 const problemset = [
@@ -70,7 +69,7 @@ const Problemset = () => {
     problemLevel = problemLevel.filter((level, idx) => problemLevel.indexOf(level) === idx).sort((a, b) => a - b);
 
     // 필터 기능 열고 닫기(필터 버튼)
-    const [exposedFilter, setExposedFilter] = useState(false);
+    const [toggleFilter, setToggleFilter] = useState(false);
     // 필터링 위한 배열(전체 버튼, 각 레벨 버튼)
     const [showFilter, setShowFilter] = useState<number[]>(problemLevel);
 
@@ -86,32 +85,41 @@ const Problemset = () => {
         setShowFilter(showFilter.filter((num) => num !== level));
     }
 
+    useEffect(() => {
+        if (showFilter.length === 0) {
+            handleAllFilter();
+        }
+    }, [showFilter]);
 
     return (
-        <ProblemsetStyle>
-            <div className="filter-button">
-                <button onClick={() => setExposedFilter(!exposedFilter)}>필터</button>
+        <ProblemsetStyle $toggleFilter={toggleFilter} $allFilter={showFilter.length===problemLevel.length}>
+            <div className="filter">
+                <div className="filter-toggle">
+                    <button  onClick={() => setToggleFilter(!toggleFilter)}>
+                        <GoTriangleRight /> 필터
+                    </button>
+                </div>
+                {   
+                    toggleFilter && (
+                        <div className="filter-div">
+                            <button id="filter-all" onClick={handleAllFilter}>전체</button>
+                            {
+                                problemLevel.map((level) => (
+                                    <>
+                                        <FilterButton onClick={() => showFilter.includes(level) ? 
+                                            handleDeleteFilter(level)
+                                            : handleAddFilter(level)
+                                        }
+                                        buttonId={level}
+                                        showFilter={showFilter}
+                                        ></FilterButton>
+                                    </>
+                                ))                             
+                            }
+                        </div>
+                    )
+                }
             </div>
-            {   
-                exposedFilter && (
-                    <div className="filter">
-                        <button onClick={handleAllFilter}>전체</button>
-                        {
-                            problemLevel.map((level) => (
-                                <>
-                                    <FilterButton onClick={() => showFilter.includes(level) ? 
-                                        handleDeleteFilter(level)
-                                        : handleAddFilter(level)
-                                    }
-                                    buttonId={level}
-                                    showFilter={showFilter}
-                                    ></FilterButton>
-                                </>
-                            ))                             
-                        }
-                    </div>
-                )
-            }
             <div>
                 <table className="problemset">
                     <thead>
@@ -151,15 +159,57 @@ const Problemset = () => {
     )
 }
 
-const ProblemsetStyle = styled.div`
+interface ProblemsetStyleProps {
+    $toggleFilter: boolean;
+    $allFilter: boolean;
+}
+
+const ProblemsetStyle = styled.div<ProblemsetStyleProps>`
     display: flex;
     flex-direction: column;
     justify-content: center;
 
     .filter {
+        border-bottom: 5px solid ${({ theme }) => theme.color.thirdary};
+        margin: 10px 13%;
+    }
+
+    .filter-toggle {
+        button {
+            font-size: 1.6rem;
+            color: ${({ theme }) => theme.color.text2};
+            font-weight: 600;
+            background: none;
+            border: none;
+            margin-bottom: 12px;
+            cursor: pointer;
+    
+            svg {
+                transform: ${({ $toggleFilter }) => $toggleFilter ? "rotate(90deg)" : "rotate(0deg)"};
+            }
+        }
+    }
+
+    .filter-div {
         display: flex;
         flex-direction: row;
         gap: 20px;
+        width: 74%;
+        align-items: center;
+        justify-content: space-between;
+        
+        #filter-all {
+            font-size: 1.6rem;
+            color: ${({ theme, $allFilter }) => $allFilter ? theme.color.text2 : theme.color.text1};
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        button {
+            margin-bottom: 20px;
+        }
     }
     
     .problemset {
@@ -193,9 +243,8 @@ const ProblemsetStyle = styled.div`
         }
 
         tbody {
-            td {
-
-            }
+            font-size: 1.4rem;
+            color: ${({ theme }) => theme.color.text2};
             
             tr {
                 height: 5rem;
