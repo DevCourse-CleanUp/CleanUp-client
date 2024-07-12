@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import Signup from "./pages/Signup";
 import Error from "./pages/Error";
+import Problemset from "./pages/Problemset";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,14 @@ const router = createBrowserRouter([
     ),
     errorElement: <Error />,
   },
+  {
+    path: "/problemset",
+    element: (
+      <Layout>
+        <Problemset />
+      </Layout>
+    )
+  }
 ]);
 
 function App() {
