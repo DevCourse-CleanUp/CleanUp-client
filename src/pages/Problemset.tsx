@@ -65,9 +65,8 @@ const problemset = [
 function Problemset() {
     return (
         <ProblemsetStyle>
-            <div className="button">
-                <Button size="medium" scheme="abled">전체</Button>
-                <Button size="medium" scheme="abled">단계별 조회</Button>
+            <div className="filter-button">
+                <button>필터</button>
             </div>
             <div>
                 {/* 단계 선택 */}
@@ -97,8 +96,8 @@ function Problemset() {
                                     <td className="td_score">{problem.score}</td>
                                     <td className="td_solved">
                                         {
-                                            problem.solved ? <FaCheck /> 
-                                            : <GoDotFill />
+                                            problem.solved ? <FaCheck id="check"/> 
+                                            : <GoDotFill id="dot" />
                                         }
                                     </td>
                                 </tr>
@@ -112,7 +111,86 @@ function Problemset() {
 }
 
 const ProblemsetStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    .filter-button {
+        width: 100%;
+        margin: 20px 13% 40px;
+        display: flex;
+        justify-content: start;
+        gap: 12px;
 
+        button {
+            background: none;
+            border: 0;
+            font-size: 1.2rem;
+        }
+    }
+    
+    .problemset {
+        width: 80%;
+        text-align: center;
+        margin: 0 10%;
+        
+        thead {
+            font-size: 1.6rem;
+            color: ${({ theme }) => theme.color.text1};
+
+            #id {
+                width: 10%;
+            }
+
+            #title {
+                width: 30%;
+            }
+
+            #level {
+                width: 15%;
+            }
+
+            #score {
+                width: 15%;
+            }
+
+            #solved {
+                width: 10%;
+            }
+        }
+
+        tbody {
+            td {
+
+            }
+            
+            tr {
+                height: 5rem;
+                &:hover {
+                    a {
+                        font-size: 2.2rem;
+                    }
+                }
+            }
+        }
+        
+        a {
+            text-decoration: none;
+            color: ${({ theme }) => theme.color.text2};
+            font-size: 2rem;
+            font-weight: 550;
+        }
+    }
+
+    svg {
+        #dot {
+            color: ${({ theme }) => theme.color.game}
+        }
+
+        #check {
+            color: aqua;
+        }
+    }
 `;
 
 export default Problemset;
