@@ -3,6 +3,7 @@ import Button from "../components/common/Button";
 import { FaCheck } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const problemset = [
     {
@@ -59,17 +60,44 @@ const problemset = [
         level: 5,
         score: 5,
         solved: true
-    },
+    }
 ]
 
-function Problemset() {
+const Problemset = () => {
+    let problemLevel = problemset.map((problem) => problem.level);
+    problemLevel = problemLevel.filter((level, idx) => problemLevel.indexOf(level) === idx).sort((a, b) => a - b);
+
+    const [exposedFilter, setExposedFilter] = useState(false);
+    const [showFilter, setShowFilter] = useState<number[]>(problemLevel);
+
+    const handleAddFilter = (level: number) => {
+        setShowFilter([...showFilter, level]);
+    }
+
+    const handleDeleteFilter = (level: number) => {
+        setShowFilter(showFilter.filter((num) => num !== level));
+    }
+
+
     return (
         <ProblemsetStyle>
             <div className="filter-button">
-                <button>필터</button>
+                <button onClick={() => setExposedFilter(!exposedFilter)}>필터</button>
             </div>
             <div>
-                {/* 단계 선택 */}
+                {   
+                    exposedFilter && (
+                        <div className="filter">
+                            {
+                                problemLevel.map((level) => (
+                                    <>
+                                        <input type="checkbox" value={level} />Lv.{level}
+                                    </>
+                                ))                             
+                            }
+                        </div>
+                    )
+                }
             </div>
             <div>
                 <table className="problemset">
@@ -84,7 +112,7 @@ function Problemset() {
                     </thead>
                     <tbody>
                         {
-                            problemset.map((problem) => (
+                            problemset.map((problem) => (showFilter.length === 0 || showFilter.includes(problem.level)) && (
                                 <tr>
                                     <td className="td_id">{problem.id}</td>
                                     <td className="td_title">
