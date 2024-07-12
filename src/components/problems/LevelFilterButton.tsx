@@ -1,32 +1,32 @@
 import styled from "styled-components";
 import {MdOutlineCheck, MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank} from "react-icons/md"; 
 
-interface FilterButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
+interface LevelFilterButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>{
     onClick: () => void;
     buttonId: number;
     showFilter: number[];
 }
 
-const FilterButton = ({buttonId, showFilter, onClick}: FilterButtonProps) => {
+const LevelFilterButton = ({buttonId, showFilter, onClick}: LevelFilterButtonProps) => {
     const show = showFilter.includes(buttonId)
 
     return (
-        <FilterButtonStyle $show={show}>
+        <LevelFilterButtonStyle $show={show}>
             <button onClick={onClick}>
                 {
                     show ? <MdOutlineCheckBox /> : <MdOutlineCheckBoxOutlineBlank />
                 }
                 Lv.{buttonId}
             </button>
-        </FilterButtonStyle>
+        </LevelFilterButtonStyle>
     )
 }
 
-interface IFilterButtonStyleProps {
+interface ILevelFilterButtonStyleProps {
     $show: boolean;
 }
 
-const FilterButtonStyle = styled.div<IFilterButtonStyleProps>`
+export const LevelFilterButtonStyle = styled.div<ILevelFilterButtonStyleProps>`
 
 button {
         display: flex;
@@ -49,4 +49,4 @@ button {
     }
 `;
 
-export default FilterButton;
+export default LevelFilterButton;
