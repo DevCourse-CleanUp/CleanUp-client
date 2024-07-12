@@ -4,6 +4,7 @@ import { FaCheck } from "react-icons/fa";
 import { GoDotFill } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import FilterButton from "../components/problems/FilterButton";
 
 const problemset = [
     {
@@ -64,11 +65,18 @@ const problemset = [
 ]
 
 const Problemset = () => {
+    // 레벨별 필터 기능 위해 레벨 배열 추출
     let problemLevel = problemset.map((problem) => problem.level);
     problemLevel = problemLevel.filter((level, idx) => problemLevel.indexOf(level) === idx).sort((a, b) => a - b);
 
+    // 필터 기능 열고 닫기(필터 버튼)
     const [exposedFilter, setExposedFilter] = useState(false);
+    // 필터링 위한 배열(전체 버튼, 각 레벨 버튼)
     const [showFilter, setShowFilter] = useState<number[]>(problemLevel);
+
+    const handleAllFilter = () => {
+        setShowFilter(showFilter.length ? [] : problemLevel);
+    }
 
     const handleAddFilter = (level: number) => {
         setShowFilter([...showFilter, level]);
@@ -84,21 +92,26 @@ const Problemset = () => {
             <div className="filter-button">
                 <button onClick={() => setExposedFilter(!exposedFilter)}>필터</button>
             </div>
-            <div>
-                {   
-                    exposedFilter && (
-                        <div className="filter">
-                            {
-                                problemLevel.map((level) => (
-                                    <>
-                                        <input type="checkbox" value={level} />Lv.{level}
-                                    </>
-                                ))                             
-                            }
-                        </div>
-                    )
-                }
-            </div>
+            {   
+                exposedFilter && (
+                    <div className="filter">
+                        <button onClick={handleAllFilter}>전체</button>
+                        {
+                            problemLevel.map((level) => (
+                                <>
+                                    <FilterButton onClick={() => showFilter.includes(level) ? 
+                                        handleDeleteFilter(level)
+                                        : handleAddFilter(level)
+                                    }
+                                    buttonId={level}
+                                    showFilter={showFilter}
+                                    ></FilterButton>
+                                </>
+                            ))                             
+                        }
+                    </div>
+                )
+            }
             <div>
                 <table className="problemset">
                     <thead>
@@ -142,19 +155,11 @@ const ProblemsetStyle = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
-    .filter-button {
-        width: 100%;
-        margin: 20px 13% 40px;
-        display: flex;
-        justify-content: start;
-        gap: 12px;
 
-        button {
-            background: none;
-            border: 0;
-            font-size: 1.2rem;
-        }
+    .filter {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
     }
     
     .problemset {
@@ -220,5 +225,6 @@ const ProblemsetStyle = styled.div`
         }
     }
 `;
+
 
 export default Problemset;
