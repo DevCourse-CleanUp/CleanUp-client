@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { GoTriangleRight } from "react-icons/go";
 import LevelFilterButton from "./LevelFilterButton";
 import NotSolvedOnlyFilterButton from "./NotSolvedOnlyFilterButton";
@@ -10,11 +9,11 @@ interface FilterBoxProps {
     setShowFilter: (value: number[]) => void;
     notSolvedOnly: boolean;
     setNotSolvedOnly: (value: boolean) => void;
+    toggleFilter: boolean;
+    setToggleFilter: (value: boolean) => void;
 }
 
-const FilterBox = ({ setShowFilter, showFilter, setNotSolvedOnly, notSolvedOnly, problemLevel }: FilterBoxProps) => {
-    const [toggleFilter, setToggleFilter] = useState(false);
-    
+const FilterBox = ({ setShowFilter, showFilter, setNotSolvedOnly, notSolvedOnly, problemLevel, toggleFilter, setToggleFilter }: FilterBoxProps) => {    
     const handleAllFilter = () => {
         if (showFilter.length === problemLevel.length) {
             setShowFilter([]);

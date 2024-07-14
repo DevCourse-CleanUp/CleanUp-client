@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
 import { FaCheck } from "react-icons/fa";
 
-
-
 const ProblemRow = (problem: Problem) => {
     return (
         <ProblemRowStyle $solved={problem.solved}>
@@ -38,11 +36,11 @@ const ProblemRowStyle = styled.div<ProblemRowStyleProps>`
     text-align: center;
     align-items: center;
 
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     color: ${({ theme }) => theme.color.text2};
     background-color: white;
             
-    height: 5rem;
+    min-height: 60px;
     border-radius: ${({ theme }) => theme.borderRadius.default};
 
     .id {
@@ -54,7 +52,7 @@ const ProblemRowStyle = styled.div<ProblemRowStyleProps>`
         a {
             text-decoration: none;
             color: ${({ theme }) => theme.color.text2};
-            font-size: 2rem;
+            font-size: 1.6rem;
             font-weight: 550;
         }
     }
@@ -74,12 +72,12 @@ const ProblemRowStyle = styled.div<ProblemRowStyleProps>`
 
     &:hover {
         .id, .level, .score, .solved { 
-            font-size: 1.8rem;
+            font-size: 1.4rem;
         }
 
         .title {
             a {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
             }
         }
     }
