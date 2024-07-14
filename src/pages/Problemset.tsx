@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { useState } from "react";
-import ProblemRow from "../components/problems/table/ProblemRow";
-import ProblemHead from "../components/problems/table/ProblemHead";
+import { useEffect, useRef, useState } from "react";
 import FilterBox from "../components/problems/filter/FilterBox";
+import ProblemsTable from "../components/problems/table/ProblemsTable";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { filterHeightState, footerHeightState, headerHeightState } from "../atoms/heightAtom";
 
 const problemset = [
     {
@@ -46,6 +47,20 @@ const problemset = [
         level: 6,
         score: 6,
         solved: true
+    },
+    {
+        id: 7,
+        title: "팔딱팔딱",
+        level: 7,
+        score: 7,
+        solved: false
+    },
+    {
+        id: 8,
+        title: "개구리 됐네",
+        level: 8,
+        score: 8,
+        solved: true
     }
 ]
 
@@ -59,22 +74,27 @@ const Problemset = () => {
 
     const [notSolvedOnly, setNotSolvedOnly] = useState<boolean>(false);
 
+    const [toggleFilter, setToggleFilter] = useState<boolean>(false);
+
+    const filterRef = useRef<HTMLDivElement>(null);
+    const setFilterHeight = useSetRecoilState(filterHeightState);
+
+    useEffect(() => {
+        setFilterHeight(filterRef.current?.offsetHeight || 700);
+    }, [toggleFilter])
+
     return (
         <ProblemsetStyle>
-            <div className="filter">
-                <FilterBox setShowFilter={setShowFilter} setNotSolvedOnly={setNotSolvedOnly} showFilter={showFilter} notSolvedOnly={notSolvedOnly} problemLevel={problemLevel}/>
+            <div className="filter" ref={filterRef}>
+                <FilterBox setShowFilter={setShowFilter} setNotSolvedOnly={setNotSolvedOnly} showFilter={showFilter} notSolvedOnly={notSolvedOnly} problemLevel={problemLevel} toggleFilter={toggleFilter} setToggleFilter={setToggleFilter} />
             </div>
-            <div className="problems">
-                <ProblemHead />
-                {   
-                    problemset.map((problem) => showFilter.includes(problem.level) && (notSolvedOnly ? !problem.solved : true) && (
-                        <ProblemRow id={problem.id} title={problem.title} level={problem.level} score={problem.score} solved={problem.solved} />
-                    ))
-                }
+            <div className="table">
+                <ProblemsTable showFilter={showFilter} notSolvedOnly={notSolvedOnly} problemset={problemset} toggleFilter={toggleFilter} />
             </div>
         </ProblemsetStyle>
     )
 }
+
 
 
 const ProblemsetStyle = styled.div`
@@ -84,14 +104,12 @@ const ProblemsetStyle = styled.div`
 
     .filter {
         width: 80%;
-        margin-left: 10%;
+        margin: 0 10%;
+        padding: 30px 0 0 0;
     }
 
-    .problems {
-        display: flex;
-        flex-direction: column;
+    .table {
         width: 80%;
-        gap : 10px;
         margin-left: 10%;
     }
 `;
