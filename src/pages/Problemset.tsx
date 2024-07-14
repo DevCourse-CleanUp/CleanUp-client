@@ -3,7 +3,8 @@ import { FaCheck } from "react-icons/fa";
 import { GoDotFill, GoTriangleRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import FilterButton from "../components/problems/FilterButton";
+import FilterButton from "../components/problems/filter/LevelFilterButton";
+import NotSolvedOnlyFilterButton from "../components/problems/filter/NotSolvedOnlyFilterButton";
 
 const problemset = [
     {
@@ -60,6 +61,17 @@ const problemset = [
         level: 5,
         score: 5,
         solved: true
+    },
+    {
+        id: 6,
+        title: "앞다리가 쑥",
+        content: {
+
+        },
+        answer: "",
+        level: 6,
+        score: 6,
+        solved: true
     }
 ]
 
@@ -73,8 +85,11 @@ const Problemset = () => {
     // 필터링 위한 배열(전체 버튼, 각 레벨 버튼)
     const [showFilter, setShowFilter] = useState<number[]>(problemLevel);
 
+    const [notSolvedOnly, setNotSolvedOnly] = useState<boolean>(false);
+
     const handleAllFilter = () => {
-        setShowFilter(showFilter.length ? [] : problemLevel);
+        setShowFilter(problemLevel);
+        setNotSolvedOnly(false);
     }
 
     const handleAddFilter = (level: number) => {
@@ -85,11 +100,9 @@ const Problemset = () => {
         setShowFilter(showFilter.filter((num) => num !== level));
     }
 
-    useEffect(() => {
-        if (showFilter.length === 0) {
-            handleAllFilter();
-        }
-    }, [showFilter]);
+    const handleNotSolvedOnlyFilter = () => {
+        setNotSolvedOnly(!notSolvedOnly);
+    }
 
     return (
         <ProblemsetStyle $toggleFilter={toggleFilter} $allFilter={showFilter.length===problemLevel.length}>
@@ -102,20 +115,29 @@ const Problemset = () => {
                 {   
                     toggleFilter && (
                         <div className="filter-div">
-                            <button id="filter-all" onClick={handleAllFilter}>전체</button>
-                            {
-                                problemLevel.map((level) => (
-                                    <>
-                                        <FilterButton onClick={() => showFilter.includes(level) ? 
-                                            handleDeleteFilter(level)
-                                            : handleAddFilter(level)
-                                        }
-                                        buttonId={level}
-                                        showFilter={showFilter}
-                                        ></FilterButton>
-                                    </>
-                                ))                             
-                            }
+                            <div className="filter-all">
+                                <button onClick={handleAllFilter}>전체</button>
+                            </div>
+                            <div className="filter-grid">
+                                <div className="filter-level">
+                                    {
+                                        problemLevel.map((level) => (
+                                            <>
+                                                <FilterButton onClick={() => showFilter.includes(level) ? 
+                                                    handleDeleteFilter(level)
+                                                    : handleAddFilter(level)
+                                                }
+                                                buttonId={level}
+                                                showFilter={showFilter}
+                                                ></FilterButton>
+                                            </>
+                                        ))                             
+                                    }
+                                </div>
+                                <div className="filter-not-solved">
+                                    <NotSolvedOnlyFilterButton notSolvedOnly={notSolvedOnly} onClick={handleNotSolvedOnlyFilter} />              
+                                </div>
+                            </div>
                         </div>
                     )
                 }
@@ -132,8 +154,8 @@ const Problemset = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            problemset.map((problem) => (showFilter.length === 0 || showFilter.includes(problem.level)) && (
+                        {   
+                            problemset.map((problem) => showFilter.includes(problem.level) && (notSolvedOnly ? !problem.solved : true) && (
                                 <tr>
                                     <td className="td_id">{problem.id}</td>
                                     <td className="td_title">
@@ -169,8 +191,14 @@ const ProblemsetStyle = styled.div<ProblemsetStyleProps>`
     flex-direction: column;
     justify-content: center;
 
+    .filter-div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
     .filter {
-        border-bottom: 5px solid ${({ theme }) => theme.color.thirdary};
+        /* border-bottom: 5px solid ${({ theme }) => theme.color.thirdary}; */
         margin: 10px 13%;
     }
 
@@ -190,15 +218,23 @@ const ProblemsetStyle = styled.div<ProblemsetStyleProps>`
         }
     }
 
-    .filter-div {
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-        width: 74%;
-        align-items: center;
-        justify-content: space-between;
+    .filter-grid {
         
-        #filter-all {
+        width: 90%;
+        
+        button {
+            margin-bottom: 20px;
+        }
+
+        .filter-level {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+        }
+    }
+
+    .filter-all {
+        width: 10%;
+        button {
             font-size: 1.6rem;
             color: ${({ theme, $allFilter }) => $allFilter ? theme.color.text2 : theme.color.text1};
             font-weight: 600;
@@ -206,20 +242,21 @@ const ProblemsetStyle = styled.div<ProblemsetStyleProps>`
             border: none;
             cursor: pointer;
         }
-
-        button {
-            margin-bottom: 20px;
-        }
     }
     
     .problemset {
         width: 80%;
         text-align: center;
         margin: 0 10%;
+
+        table {
+            border-radius: 10px;
+        }
         
         thead {
             font-size: 1.6rem;
             color: ${({ theme }) => theme.color.text1};
+            background-color: ${({ theme }) => theme.color.thirdary};
 
             #id {
                 width: 10%;
@@ -245,6 +282,7 @@ const ProblemsetStyle = styled.div<ProblemsetStyleProps>`
         tbody {
             font-size: 1.4rem;
             color: ${({ theme }) => theme.color.text2};
+            background-color: white;
             
             tr {
                 height: 5rem;
