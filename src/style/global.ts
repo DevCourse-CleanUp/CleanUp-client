@@ -15,4 +15,13 @@ export const GlobalStyle = createGlobalStyle`
     h2 {
         margin: 0;
     }
+
+    .canvas {
+  height: 100vh;
+  left: 0px;
+  pointer-events: none;
+  position: fixed;
+  top: 0px;
+  width: 100vw;
+}
 `;
