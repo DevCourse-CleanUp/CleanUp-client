@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+export const HEIGHT = 40;
+
 function ProblemHead () {
     return (
         <ProblemHeadStyle>
@@ -18,12 +20,12 @@ const ProblemHeadStyle = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 3rem;
+    height: ${HEIGHT}px;
 
     text-align: center;
     align-items: center;
 
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     color: ${({ theme }) => theme.color.text1};
     background-color: ${({ theme }) => theme.color.thirdary};
             
