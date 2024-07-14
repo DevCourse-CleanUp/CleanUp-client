@@ -12,9 +12,10 @@ const Header = () => {
 
 const HeaderStyle = styled.header`
   display: flex;
+  align-items: center;
   width: 100%;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 10px 0;
   border-bottom: 1px solid ${({ theme }) => theme.color.primary};
   background-color: ${({ theme }) => theme.color.thirdary};
 

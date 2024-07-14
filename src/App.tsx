@@ -6,6 +6,7 @@ import { RecoilRoot } from "recoil";
 import Signup from "./pages/Signup";
 import Error from "./pages/Error";
 import Problemset from "./pages/Problemset";
+import Problem from "./pages/Problem";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,16 @@ const router = createBrowserRouter([
         <Problemset />
       </Layout>
     )
-  }
+  },
+  {
+    path: "/problem",
+    element: (
+      <Layout>
+        <Problem />
+      </Layout>
+    ),
+    errorElement: <Error />,
+  },
 ]);
 
 function App() {
