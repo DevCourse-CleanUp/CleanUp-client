@@ -1,55 +1,54 @@
-import { FaFire } from "react-icons/fa";
 import { CreateTypes } from "canvas-confetti";
-import { Component } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import ReactCanvasConfetti from "../Lanking/CanvasConfetti";
 
-export default class PopConfetti extends Component {
-  private isAnimationEnabled: boolean;
-  private animationInstance: CreateTypes | null = null;
+interface Props {
+  children?: React.ReactNode;
+}
 
-  constructor(props: {}) {
-    super(props);
-    this.isAnimationEnabled = false;
-    this.fire = this.fire.bind(this);
-  }
+const PopConfetti: React.FC<Props> = ({ children }) => {
+  const animationInstance = useRef<CreateTypes | null>(null);
 
-  makeShot(particleRatio: number, opts: object) {
-    this.animationInstance &&
-      this.animationInstance({
+  const makeShot = (particleRatio: number, opts: object) => {
+    if (animationInstance.current) {
+      animationInstance.current({
         ...opts,
-        origin: { y: 0.8 },
+        origin: { x: 0.8, y: 0.8 },
         particleCount: Math.floor(200 * particleRatio),
       });
-  }
+    }
+  };
 
-  // 이 부분에서 사용하고 싶은 설정을 하면 된다.
-  fire() {
-    this.makeShot(0.25, {
-      spread: 25,
+  // 사용자 설정
+  const fire = () => {
+    makeShot(0.25, {
+      spread: 20,
       startVelocity: 55,
     });
-  }
-
-  handlerFire = () => {
-    if (!this.isAnimationEnabled) {
-      this.isAnimationEnabled = true;
-    }
-    requestAnimationFrame(this.fire);
   };
 
-  getInstance = (instance: CreateTypes | null) => {
-    this.animationInstance = instance;
+  const handlerFire = () => {
+    requestAnimationFrame(fire);
   };
 
-  render() {
-    return (
-      <div onClick={this.handlerFire}>
-        <FaFire />
-        <ReactCanvasConfetti
-          refConfetti={this.getInstance}
-          className="canvas"
-        />
-      </div>
-    );
-  }
-}
+  const getInstance = (instance: CreateTypes | null) => {
+    animationInstance.current = instance;
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fire();
+    }, 3000); //2.5초마다 실행
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 정리
+  }, []);
+
+  return (
+    <>
+      <ReactCanvasConfetti refConfetti={getInstance} className="canvas" />
+      {children}
+    </>
+  );
+};
+
+export default PopConfetti;

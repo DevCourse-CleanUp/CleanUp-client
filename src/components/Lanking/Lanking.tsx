@@ -81,9 +81,9 @@ const Lanking = () => {
       <LankingStyle>
         <SliderWrapper>
           <Slider {...settings}>
-            <PopConfetti />
             {users.map((user) => (
-              <div key={user.lanking}>
+                <div key={user.lanking}>
+                <PopConfetti />
                 <p>
                   <user.medal />
                 </p>
