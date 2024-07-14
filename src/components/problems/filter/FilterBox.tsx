@@ -89,7 +89,7 @@ const FilterBoxStyle = styled.div<FilterBoxStyleProps>`
 
     .filter-toggle {
         button {
-            font-size: 1.6rem;
+            font-size: 1rem;
             color: ${({ theme }) => theme.color.text2};
             font-weight: 600;
             background: none;
@@ -108,7 +108,7 @@ const FilterBoxStyle = styled.div<FilterBoxStyleProps>`
         width: 90%;
         
         button {
-            margin-bottom: 20px;
+            margin-bottom: 8px;
         }
 
         .filter-level {
@@ -120,7 +120,7 @@ const FilterBoxStyle = styled.div<FilterBoxStyleProps>`
     .filter-all {
         width: 10%;
         button {
-            font-size: 1.6rem;
+            font-size: 1rem;
             color: ${({ theme, $allFilter }) => $allFilter ? theme.color.text2 : theme.color.text1};
             font-weight: 600;
             background: none;

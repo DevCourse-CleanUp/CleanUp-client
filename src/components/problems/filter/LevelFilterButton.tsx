@@ -32,18 +32,17 @@ button {
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 1.6rem;
+        font-size: 1rem;
         background: none;
         border: 0;
         gap: 8px;
-        width: 100px;
         
         color: ${({ theme, $show }) => $show ? theme.color.text2 : theme.color.text1};
         font-weight: ${({ $show }) => $show ? 700 : 100};
         
         svg {
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
         }
         cursor: pointer;
     }

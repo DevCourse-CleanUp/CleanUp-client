@@ -28,7 +28,7 @@ export const NotSolvedOnlyFilterButtonStyle = styled.div<INotSolvedOnlyFilterBut
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 1.6rem;
+        font-size: 1rem;
         background: none;
         border: 0;
         gap: 8px;
@@ -37,8 +37,8 @@ export const NotSolvedOnlyFilterButtonStyle = styled.div<INotSolvedOnlyFilterBut
         font-weight: ${({ $notSolvedOnly }) => $notSolvedOnly ? 700 : 100};
         
         svg {
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
         }
         cursor: pointer;
     }
