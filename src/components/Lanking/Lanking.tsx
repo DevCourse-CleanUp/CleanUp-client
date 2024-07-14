@@ -1,11 +1,28 @@
 import { styled } from "styled-components";
-import React, { useRef } from "react";
-import Slider from "react-slick";
+import Slider, { CustomArrowProps } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { GoChevronLeft, GoChevronRight, GoArrowRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 import Button from "../common/Button";
+
+const users = [
+  {
+    lanking: "1",
+    nickname: "김세모",
+    total_score: 5889,
+  },
+  {
+    lanking: "2",
+    nickname: "이네모",
+    total_score: 4683,
+  },
+  {
+    lanking: "3",
+    nickname: "박동그라미",
+    total_score: 2889,
+  },
+];
 
 const Lanking = () => {
   const settings = {
@@ -16,16 +33,32 @@ const Lanking = () => {
     autoplay: true,
     autoplaySpeed: 2500,
     pauseOnHover: true, //마우스 올리면 정지
+
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
   };
 
-  let sliderRef = useRef<Slider | null>(null);
-  const next = () => {
-    sliderRef.current?.slickNext();
-  };
+  function PrevArrow(props: CustomArrowProps) {
+    const { className, onClick } = props;
+    return (
+      <PrevArrowStyle>
+        <div className={className} onClick={onClick}>
+          <GoChevronLeft style={{ fontSize: "30px", color: "black" }} />
+        </div>
+      </PrevArrowStyle>
+    );
+  }
 
-  const previous = () => {
-    sliderRef.current?.slickPrev();
-  };
+  function NextArrow(props: CustomArrowProps) {
+    const { className, onClick } = props;
+    return (
+      <NextArrowStyle>
+        <div className={className} onClick={onClick}>
+          <GoChevronRight style={{ fontSize: "30px", color: "black" }} />
+        </div>
+      </NextArrowStyle>
+    );
+  }
 
   return (
     <>
@@ -37,31 +70,18 @@ const Lanking = () => {
 
       <LankingStyle>
         <SliderWrapper>
-          <Slider ref={sliderRef} {...settings}>
-            <div key={1}>
-              <p>1위</p>
-            </div>
-            <div key={2}>
-              <p>2위</p>
-            </div>
-            <div key={3}>
-              <p>3위</p>
-            </div>
+          <Slider {...settings}>
+            {users.map((user) => (
+              <div key={user.lanking}>
+                <p>{user.lanking}위</p>
+                <p>{user.nickname}</p>
+                <p>{user.total_score}점</p>
+              </div>
+            ))}
           </Slider>
         </SliderWrapper>
       </LankingStyle>
       <ButtonStyle>
-        <Button
-          size="medium"
-          scheme="abled"
-          className="prev"
-          onClick={previous}
-        >
-          <GoChevronLeft />
-        </Button>
-        <Button size="medium" scheme="abled" className="next" onClick={next}>
-          <GoChevronRight />
-        </Button>
         <Link to="/problem">
           <Button size="medium" scheme="abled">
             문제 풀러가기
@@ -106,10 +126,6 @@ const SliderWrapper = styled.div`
   position: relative;
   .slick-prev,
   .slick-next {
-    /* display: block;
-    width: 30px;
-    height: 30px;
-    z-index: 1; */
 
     &:before {
       display: none;
@@ -139,5 +155,8 @@ const ButtonStyle = styled.div`
     margin-left: 6px;
   }
 `;
+
+const PrevArrowStyle = styled.div``;
+const NextArrowStyle = styled.div``;
 
 export default Lanking;
