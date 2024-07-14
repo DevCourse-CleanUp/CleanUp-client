@@ -1,22 +1,30 @@
 import { styled } from "styled-components";
-import React from "react";
+import React, { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { GoArrowRight } from "react-icons/go";
+import { GoChevronLeft, GoChevronRight, GoArrowRight } from "react-icons/go";
 import { Link } from "react-router-dom";
+import Button from "../common/Button";
 
 const Lanking = () => {
   const settings = {
-    // dots: true, //갯수 표시 점
-    infinite: true, //무한 캐러셀
-    speed: 100, //다음 컨텐츠까지의 속도
-    slidesToShow: 1, //화면에 보이는 컨텐츠 수
-    slidesToScroll: 1, //스크롤 시 넘어가는 컨텐츠 수
     centerMode: true, // 현재 컨텐츠 가운데 정렬
+    infinite: true, //무한 캐러셀
     centerPadding: "10px", // 중앙 컨텐츠 padding 값
-    arrows: true,
+    slidesToShow: 1, //화면에 보이는 컨텐츠 수
     autoplay: true,
+    autoplaySpeed: 2500,
+    pauseOnHover: true, //마우스 올리면 정지
+  };
+
+  let sliderRef = useRef<Slider | null>(null);
+  const next = () => {
+    sliderRef.current?.slickNext();
+  };
+
+  const previous = () => {
+    sliderRef.current?.slickPrev();
   };
 
   return (
@@ -29,28 +37,38 @@ const Lanking = () => {
 
       <LankingStyle>
         <SliderWrapper>
-          <Slider {...settings}>
-            <div>
+          <Slider ref={sliderRef} {...settings}>
+            <div key={1}>
               <p>1위</p>
             </div>
-            <div>
+            <div key={2}>
               <p>2위</p>
             </div>
-            <div>
+            <div key={3}>
               <p>3위</p>
             </div>
           </Slider>
         </SliderWrapper>
       </LankingStyle>
       <ButtonStyle>
-        <button>
-          <Link to={``}>
+        <Button
+          size="medium"
+          scheme="abled"
+          className="prev"
+          onClick={previous}
+        >
+          <GoChevronLeft />
+        </Button>
+        <Button size="medium" scheme="abled" className="next" onClick={next}>
+          <GoChevronRight />
+        </Button>
+        <Link to="/problem">
+          <Button size="medium" scheme="abled">
             문제 풀러가기
             <GoArrowRight />
-          </Link>
-        </button>
+          </Button>
+        </Link>
       </ButtonStyle>
-      {/* <Button size="medium" scheme="abled" onClick={()=>{}}>문제 풀러가기<GoArrowRight/></Button> */}
     </>
   );
 };
@@ -61,9 +79,8 @@ const LankingStyle = styled.div`
   justify-content: center;
 
   background: pink;
-  width: 100%;
+  width: 300px;
   height: 300px;
-  max-width: 300px;
   margin: auto;
 
   p {
@@ -71,6 +88,9 @@ const LankingStyle = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    height: 100%;
+    font-size: 1.5em;
   }
 `;
 
@@ -86,9 +106,14 @@ const SliderWrapper = styled.div`
   position: relative;
   .slick-prev,
   .slick-next {
-    // &:before {
-    //   display: none;
-    // }
+    /* display: block;
+    width: 30px;
+    height: 30px;
+    z-index: 1; */
+
+    &:before {
+      display: none;
+    }
   }
 
   .slick-prev {
@@ -101,6 +126,7 @@ const SliderWrapper = styled.div`
 `;
 
 const ButtonStyle = styled.div`
+  gap: 6px;
   display: flex;
   justify-content: center;
   padding-top: 20px;
