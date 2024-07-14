@@ -44,21 +44,21 @@ const problemset = [
     {
         id: 6,
         title: "앞다리가 쑥",
-        level: 6,
-        score: 6,
+        level: 2,
+        score: 5,
         solved: true
     },
     {
         id: 7,
         title: "팔딱팔딱",
-        level: 7,
-        score: 7,
+        level: 3,
+        score: 4,
         solved: false
     },
     {
         id: 8,
         title: "개구리 됐네",
-        level: 8,
+        level: 3,
         score: 8,
         solved: true
     }
