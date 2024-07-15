@@ -10,10 +10,10 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function Button({ children, size, scheme, disabled, borderRadius="default", 
-    onClick, onMouseOver }: Props) {
+    onClick, onMouseOver, onMouseOut}: Props) {
   return (
     <ButtonStyle size={size} scheme={scheme} disabled={disabled} borderRadius={borderRadius}
-    onClick={onClick} onMouseOver={onMouseOver}>
+    onClick={onClick} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
       {children}
     </ButtonStyle>
   );

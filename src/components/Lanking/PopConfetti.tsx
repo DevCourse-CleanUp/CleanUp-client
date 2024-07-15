@@ -7,7 +7,7 @@ const PopConfetti = forwardRef((props, ref) => {
       confetti({
         particleCount: 100, 
         spread: 70, 
-        origin: { y: 0.7 }, 
+        origin: { y: 0.6 }, 
       });
     },
   }));

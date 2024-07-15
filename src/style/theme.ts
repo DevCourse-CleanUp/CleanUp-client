@@ -4,7 +4,7 @@ export type HeaderText = "default";
 export type ThemeName = "origin";
 export type HeadingSize = "large" | "medium" | "small";
 export type ButtonSize = "large" | "medium" | "small" | "long";
-export type ButtonScheme = "abled" | "disabled";
+export type ButtonScheme = "abled" | "disabled" | "clicked";
 export type BorderRadius = "default" | "editor" | "round";
 export type TrashColor = "red" | "yellow" | "blue";
 export type TrashState = "clear" | "unclear";
@@ -122,6 +122,10 @@ const origin: Theme = {
         disabled: {
             color: "white",
             backgroundColor: "gray",
+        },
+        clicked: {
+            color: "white",
+            backgroundColor: "#ffa6b5",
         },
     },
     borderRadius: {

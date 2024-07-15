@@ -36,7 +36,7 @@ const users = [
 ];
 
 const Lanking = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const confettiRef = useRef<{ fire: () => void }>(null);
 
   const settings = {
@@ -48,7 +48,7 @@ const Lanking = () => {
     autoplaySpeed: 2500,
     pauseOnHover: true,
 
-    afterChange: (current: number) => setCurrentSlide(current),
+    // afterChange: (current: number) => setCurrentSlide(current),
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
@@ -71,10 +71,15 @@ const Lanking = () => {
     );
   }
 
-  const handleButtonClick = () => {
+  const handleMouseOver = () => {
     if (confettiRef.current) {
       confettiRef.current.fire();
+      setIsHovered(true);
     }
+  };
+
+  const handleMouseOut = () => {
+    setIsHovered(false);
   };
 
   return (
@@ -106,9 +111,10 @@ const Lanking = () => {
         <Link to="/problem">
           <Button
             size="long"
-            scheme="abled"
+            scheme={isHovered? "clicked" : "abled"}
             borderRadius="round"
-            onMouseOver={handleButtonClick}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
             className="goProblemBtn"
           >
             문제 풀러가기
@@ -195,7 +201,7 @@ const ButtonStyle = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 20px;
-  
+
   a {
     text-decoration: none;
   }
@@ -204,5 +210,9 @@ const ButtonStyle = styled.div`
     margin-left: 6px;
   }
 `;
+
+// const StyledButton = styled(Button)<{ isHovered: boolean }>`
+//   background-color: ${({ isHovered }) => (isHovered ? "#fef4f4" : "#1f1c1c")};
+// `;
 
 export default Lanking;
