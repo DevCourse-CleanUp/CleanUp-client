@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import Signup from "./pages/Signup";
 import Error from "./pages/Error";
+import Problemset from "./pages/Problemset";
 import Problem from "./pages/Problem";
 
 const router = createBrowserRouter([
@@ -27,7 +28,14 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    // path: "/problem/:problemId",
+    path: "/problemset",
+    element: (
+      <Layout>
+        <Problemset />
+      </Layout>
+    )
+  },
+  {
     path: "/problem",
     element: (
       <Layout>

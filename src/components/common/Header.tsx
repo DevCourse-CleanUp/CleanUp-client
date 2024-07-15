@@ -1,9 +1,19 @@
+import { useEffect, useRef } from "react";
 import { FcFullTrash } from "react-icons/fc";
+import { useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { headerHeightState } from "../../atoms/heightAtom";
 
 const Header = () => {
+  const headRef = useRef<HTMLHeadElement>(null);
+  const setHeaderHeight = useSetRecoilState(headerHeightState);
+  
+  useEffect(() => {
+    setHeaderHeight(headRef.current?.offsetHeight || 0);
+  }, [])
+
   return (
-    <HeaderStyle>
+    <HeaderStyle ref={headRef}>
       <FcFullTrash size="70" />
       <h1>Clean Up</h1>
     </HeaderStyle>
