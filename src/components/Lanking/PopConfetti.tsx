@@ -1,5 +1,5 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
-import confetti from 'canvas-confetti';
+import { forwardRef, useEffect, useImperativeHandle } from "react";
+import confetti from "canvas-confetti";
 
 const PopConfetti = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
@@ -11,6 +11,12 @@ const PopConfetti = forwardRef((props, ref) => {
       });
     },
   }));
+
+  useEffect(() => {
+    return () => {
+      confetti.reset();
+    };
+  }, []);
 
   return null;
 });
