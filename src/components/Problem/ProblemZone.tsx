@@ -36,10 +36,13 @@ export const ProblemZone = () => {
 };
 
 const ProblemZoneStyle = styled.div`
+  font-family: 'NeoDunggeunmo', sans-serif;
+  line-height: 1.4;
+  
   .stageButton {
     display: inline-flex;
     width: auto;
-    background: #5ef0f9;
+    background: #97cf9d;
     margin-right: 10px;
 
     p,
@@ -48,7 +51,7 @@ const ProblemZoneStyle = styled.div`
       align-items: center;
       margin: 0px;
 
-      background: #5ef0f9;
+      background: #97cf9d;
     }
 
     p {

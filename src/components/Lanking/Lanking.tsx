@@ -11,6 +11,7 @@ import {
   TbHexagonNumber2Filled,
   TbHexagonNumber3Filled,
 } from "react-icons/tb";
+import { SiGamebanana } from "react-icons/si";
 import PopConfetti from "./PopConfetti";
 import { useRef, useState } from "react";
 
@@ -94,7 +95,7 @@ const Lanking = () => {
         </div>
       </LankingTitleStyle>
 
-      <LankingStyle>
+      <LankingStyle className="neo-font">
         <Slider {...settings}>
           {users.map((user) => (
             <div key={user.lanking}>
@@ -111,14 +112,14 @@ const Lanking = () => {
         <Link to="/problem">
           <Button
             size="long"
-            scheme={isHovered? "clicked" : "abled"}
+            scheme={isHovered ? "clicked" : "abled"}
             borderRadius="round"
             onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             className="goProblemBtn"
           >
-            문제 풀러가기
-            <GoArrowRight />
+            <p>Go!</p>
+            <SiGamebanana />
           </Button>
         </Link>
       </ButtonStyle>
@@ -138,6 +139,7 @@ const LankingStyle = styled.div`
   margin: auto;
   border-radius: 30%;
   background: pink;
+  font-family: 'NeoDunggeunmo', sans-serif;
 
   p {
     display: flex;
@@ -202,17 +204,24 @@ const ButtonStyle = styled.div`
   justify-content: center;
   padding-top: 20px;
 
+  p {
+    font-family: cursive;
+    color: ${({ theme }) => theme.headerText.default.color};
+    font-size: 25px;
+    font-weight: ${({ theme }) => theme.headerText.default.fontWeight};
+    text-shadow: ${({ theme }) => theme.headerText.default.textShadow};
+  }
+
   a {
     text-decoration: none;
   }
 
   svg {
     margin-left: 6px;
+    color: #fff;
+    width: 30px;
+    height: 30px;
   }
 `;
-
-// const StyledButton = styled(Button)<{ isHovered: boolean }>`
-//   background-color: ${({ isHovered }) => (isHovered ? "#fef4f4" : "#1f1c1c")};
-// `;
 
 export default Lanking;

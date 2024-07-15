@@ -7,6 +7,9 @@
       "esnext",
       "es2015"
     ],
+    
+    "typeRoots": ["node_modules/@types", "./fonts.d.ts"],
+
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
