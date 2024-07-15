@@ -1,136 +1,104 @@
-import canvasConfetti, {
-    CreateTypes,
-    GlobalOptions,
-    Options,
-  } from "canvas-confetti";
-  import { Component, createRef, CSSProperties, RefObject } from "react";
-  
-  export interface IProps extends Options, GlobalOptions {
-    fire?: any;
-    reset?: any;
-    width?: string | number;
-    height?: string | number;
-    className?: string;
-    style?: CSSProperties;
-    refConfetti?: (confetti: CreateTypes | null) => void;
-    onDecay?: () => void;
-    onFire?: () => void;
-    onReset?: () => void;
-  }
-  
-  export default class CanvasConfetti extends Component<IProps> {
-    private refCanvas: RefObject<HTMLCanvasElement>;
-  
-    private confetti: CreateTypes | null;
-  
-    constructor(props: IProps) {
-      super(props);
-      this.refCanvas = createRef();
-      this.confetti = null;
+import React, { useEffect, useRef } from 'react';
+import canvasConfetti, { GlobalOptions, Options } from 'canvas-confetti';
+
+interface Props extends Options{
+  resize?: boolean;
+  useWorker?: boolean;
+  fire?: boolean;
+  reset?: boolean;
+  onFire?: () => void;
+  onDecay?: () => void;
+  onReset?: () => void;
+  refConfetti?: (confetti: any) => void;
+  className?: string;
+  style?: React.CSSProperties;
+  width?: number;
+  height?: number;
+}
+
+const Confetti: React.FC<Props & Options> = ({
+  resize = true,
+  useWorker = true,
+  fire,
+  reset,
+  onFire,
+  onDecay,
+  onReset,
+  refConfetti,
+  className,
+  style,
+  width,
+  height,
+  ...confettiProps
+}) => {
+  const refCanvas = useRef<HTMLCanvasElement>(null);
+  const confettiInstance = useRef<any>(null);
+
+  useEffect(() => {
+    if (!refCanvas.current) return;
+
+    const globalOptions: GlobalOptions = {
+      resize,
+      useWorker,
+    };
+
+    confettiInstance.current = canvasConfetti.create(refCanvas.current, globalOptions);
+    if (refConfetti) refConfetti(confettiInstance.current);
+
+    return () => {
+      if (refConfetti) refConfetti(null);
+    };
+  }, [resize, useWorker, refConfetti]);
+
+  useEffect(() => {
+    if (fire) {
+      fireConfetti();
     }
-  
-    componentDidMount() {
-      if (!this.refCanvas.current) {
-        return;
-      }
-  
-      const { resize, useWorker } = this.props;
-      const globalOptions: GlobalOptions = {
-        resize: typeof resize === "undefined" ? true : resize,
-        useWorker: typeof useWorker === "undefined" ? true : useWorker,
-      };
-  
-      this.confetti = canvasConfetti.create(
-        this.refCanvas.current,
-        globalOptions
-      );
-      this.setRefConfetti();
+  }, [fire]);
+
+  useEffect(() => {
+    if (reset) {
+      resetConfetti();
     }
-  
-    componentDidUpdate(prevProps: Readonly<IProps>) {
-      const { fire, reset } = this.props;
-      const isFireTrue = !!fire;
-      const isFireChanged = fire !== prevProps.fire;
-  
-      if (isFireTrue && isFireChanged) {
-        this.fireConfetti();
-      }
-  
-      const isResetTrue = !!reset;
-      const isResetChanged = reset !== prevProps.reset;
-  
-      if (isResetTrue && isResetChanged) {
-        this.resetConfetti();
-      }
+  }, [reset]);
+
+  const fireConfetti = () => {
+    if (!confettiInstance.current) return;
+
+    if (onFire) onFire();
+
+    const promise = confettiInstance.current(confettiProps);
+
+    if (promise) {
+      promise.then(() => {
+        if (onDecay) onDecay();
+      });
     }
-  
-    componentWillUnmount() {
-      this.unsetRefConfetti();
-    }
-  
-    private setRefConfetti() {
-      const { refConfetti } = this.props;
-  
-      refConfetti && refConfetti(this.confetti);
-    }
-  
-    private unsetRefConfetti() {
-      const { refConfetti } = this.props;
-  
-      refConfetti && refConfetti(null);
-    }
-  
-    private fireConfetti() {
-      if (!this.confetti) {
-        return;
-      }
-  
-      const {
-        onFire,
-        onDecay,
-        onReset,
-        className,
-        style,
-        width,
-        height,
-        refConfetti,
-        fire,
-        reset,
-        ...confettiProps
-      } = this.props;
-  
-      onFire && onFire();
-  
-      const promise = this.confetti(confettiProps);
-  
-      promise &&
-        promise.then(() => {
-          onDecay && onDecay();
-        });
-    }
-  
-    private resetConfetti() {
-      if (!this.confetti) {
-        return;
-      }
-  
-      this.confetti.reset();
-  
-      const { onReset } = this.props;
-  
-      onReset && onReset();
-    }
-  
-    render() {
-      const { style, className, width, height } = this.props;
-      return (
-        <canvas
-          ref={this.refCanvas}
-          style={style}
-          className={className}
-          width={width}
-          height={height}
-        />
-      );
-    }
-  }
+  };
+
+  const resetConfetti = () => {
+    if (!confettiInstance.current) return;
+
+    confettiInstance.current.reset();
+
+    if (onReset) onReset();
+  };
+
+  return (
+    <canvas
+      ref={refCanvas}
+      className={className}
+      style={{ 
+        width: width || '100%',
+        height: height || '100%',
+        // position: "absolute",
+        // position: "fixed",
+        // top: 0,
+        // left: 0,
+        ...style 
+      }}
+    />
+  );
+};
+
+export default Confetti;
