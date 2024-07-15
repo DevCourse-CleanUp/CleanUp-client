@@ -12,6 +12,7 @@ import {
   TbHexagonNumber3Filled,
 } from "react-icons/tb";
 import PopConfetti from "./PopConfetti";
+import { useRef, useState } from "react";
 
 const users = [
   {
@@ -35,6 +36,9 @@ const users = [
 ];
 
 const Lanking = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const confettiRef = useRef<{ fire: () => void }>(null);
+
   const settings = {
     centerMode: true, // 현재 컨텐츠 가운데 정렬
     infinite: true, //무한 캐러셀
@@ -44,6 +48,7 @@ const Lanking = () => {
     autoplaySpeed: 2500,
     pauseOnHover: true, //마우스 올리면 정지
 
+    afterChange: (current: number) => setCurrentSlide(current),
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
@@ -66,6 +71,12 @@ const Lanking = () => {
     );
   }
 
+  const handleButtonClick = () => {
+    if (confettiRef.current) {
+      confettiRef.current.fire();
+    }
+  };
+
   return (
     <>
       <LankingTitleStyle>
@@ -82,8 +93,10 @@ const Lanking = () => {
         <SliderWrapper>
           <Slider {...settings}>
             {users.map((user) => (
-                <div key={user.lanking}>
-                <PopConfetti />
+              <div key={user.lanking}>
+                {/* {index === currentSlide && user.lanking === "1" && (
+                        <PopConfetti lanking={user.lanking} />
+                    )}  */}
                 <p>
                   <user.medal />
                 </p>
@@ -95,13 +108,14 @@ const Lanking = () => {
         </SliderWrapper>
       </LankingStyle>
       <ButtonStyle>
-        <Link to="/problem">
-          <Button size="medium" scheme="abled">
+        <Link to="/problem" className="goProblemBtn">
+          <Button size="long" scheme="abled" onMouseOver={handleButtonClick} borderRadius="round">
             문제 풀러가기
             <GoArrowRight />
           </Button>
         </Link>
       </ButtonStyle>
+      <PopConfetti ref={confettiRef} />
     </>
   );
 };
@@ -111,12 +125,11 @@ const LankingStyle = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  background: pink;
   width: 300px;
   height: 300px;
   margin: auto;
-
   border-radius: 30%;
+  background: pink;
 
   p {
     display: flex;
@@ -125,14 +138,12 @@ const LankingStyle = styled.div`
     align-items: center;
     gap: 6px;
 
-    height: 100%;
     font-size: 1.5em;
   }
 `;
 
 const LankingTitleStyle = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 30px 0 20px 0;
@@ -157,6 +168,7 @@ const LankingTitleStyle = styled.div`
   }
 `;
 
+
 const SliderWrapper = styled.div`
   position: relative;
   .slick-prev,
@@ -167,7 +179,7 @@ const SliderWrapper = styled.div`
   }
 
   .slick-prev {
-    left: -50px;
+    left: -80px;
   }
 
   .slick-next {
@@ -175,12 +187,6 @@ const SliderWrapper = styled.div`
   }
 
   svg {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-
     width: 50px;
     height: 50px;
     color: #ff4f4f;
@@ -188,17 +194,17 @@ const SliderWrapper = styled.div`
 `;
 
 const ButtonStyle = styled.div`
-  gap: 6px;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding-top: 20px;
 
-  a {
+  .goProblemBtn {
     text-decoration: none;
-  }
 
-  svg {
-    margin-left: 6px;
+    svg {
+      margin-left: 6px;
+    }
   }
 `;
 

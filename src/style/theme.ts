@@ -3,9 +3,9 @@ export type HeaderSize = "none" | "small";
 export type HeaderText = "default";
 export type ThemeName = "origin";
 export type HeadingSize = "large" | "medium" | "small";
-export type ButtonSize = "large" | "medium" | "small";
+export type ButtonSize = "large" | "medium" | "small" | "long";
 export type ButtonScheme = "abled" | "disabled";
-export type BorderRadius = "default" | "editor";
+export type BorderRadius = "default" | "editor" | "round";
 export type TrashColor = "red" | "yellow" | "blue";
 export type TrashState = "clear" | "unclear";
 
@@ -34,6 +34,8 @@ export interface Theme {
         [key in ButtonSize]: {
             fontSize: string;
             padding: string;
+            width?: string;
+            height?: string;
         };
     };
     buttonScheme: {
@@ -87,15 +89,21 @@ const origin: Theme = {
     buttonSize: {
         large: {
             fontSize: "1.5rem",
-            padding: "1rem 2rem"
+            padding: "1rem 2rem",
         },
         medium: {
             fontSize: "1.2rem",
-            padding: "0.5rem 1rem"
+            padding: "0.5rem 1rem",
         },
         small: {
             fontSize: "1rem",
             padding: "0.25rem 0.5rem"
+        },
+        long: {
+            fontSize: "1.5rem",
+            padding: "0.5rem",
+            width: "300px",
+            height: "60px",
         },
     },
     buttonScheme: {
@@ -110,7 +118,8 @@ const origin: Theme = {
     },
     borderRadius: {
         default: "8px",
-        editor: "4px"
+        editor: "4px",
+        round: "30px",
     }
 }
 
