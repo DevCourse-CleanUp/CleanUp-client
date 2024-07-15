@@ -34,8 +34,12 @@ export interface Theme {
         [key in ButtonSize]: {
             fontSize: string;
             padding: string;
+
             width?: string;
             height?: string;
+            display?: string;
+            alignItems?: string;
+            justifyContent?: string;
         };
     };
     buttonScheme: {
@@ -101,9 +105,13 @@ const origin: Theme = {
         },
         long: {
             fontSize: "1.5rem",
-            padding: "0.5rem",
+            padding: "0rem",
             width: "300px",
             height: "60px",
+
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
         },
     },
     buttonScheme: {

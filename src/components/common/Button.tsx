@@ -7,10 +7,10 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   scheme: ButtonScheme;
   borderRadius?: BorderRadius;
   disabled?: boolean;
-  // isLoading?: boolean;
 }
 
-function Button({ children, size, scheme, disabled, onClick, onMouseOver, borderRadius="default" }: Props) {
+function Button({ children, size, scheme, disabled, borderRadius="default", 
+    onClick, onMouseOver }: Props) {
   return (
     <ButtonStyle size={size} scheme={scheme} disabled={disabled} borderRadius={borderRadius}
     onClick={onClick} onMouseOver={onMouseOver}>
@@ -19,7 +19,11 @@ function Button({ children, size, scheme, disabled, onClick, onMouseOver, border
   );
 }
 
-const ButtonStyle = styled.button<Omit<Props, 'children'>>`
+const ButtonStyle = styled.button<Omit<Props, "children">>`
+  display: ${({ theme, size }) => theme.buttonSize[size].display};
+  align-items: ${({ theme, size }) => theme.buttonSize[size].alignItems};
+  justify-content: ${({ theme, size }) => theme.buttonSize[size].justifyContent};; 
+
   font-size: ${({ theme, size }) => theme.buttonSize[size].fontSize};
   padding: ${({ theme, size }) => theme.buttonSize[size].padding};
   width: ${({ theme, size }) => theme.buttonSize[size].width};

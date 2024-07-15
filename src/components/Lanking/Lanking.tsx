@@ -40,13 +40,13 @@ const Lanking = () => {
   const confettiRef = useRef<{ fire: () => void }>(null);
 
   const settings = {
-    centerMode: true, // 현재 컨텐츠 가운데 정렬
-    infinite: true, //무한 캐러셀
-    centerPadding: "10px", // 중앙 컨텐츠 padding 값
-    slidesToShow: 1, //화면에 보이는 컨텐츠 수
+    centerMode: true,
+    infinite: true,
+    centerPadding: "10px",
+    slidesToShow: 1,
     autoplay: true,
     autoplaySpeed: 2500,
-    pauseOnHover: true, //마우스 올리면 정지
+    pauseOnHover: true,
 
     afterChange: (current: number) => setCurrentSlide(current),
     nextArrow: <NextArrow />,
@@ -90,26 +90,27 @@ const Lanking = () => {
       </LankingTitleStyle>
 
       <LankingStyle>
-        <SliderWrapper>
-          <Slider {...settings}>
-            {users.map((user) => (
-              <div key={user.lanking}>
-                {/* {index === currentSlide && user.lanking === "1" && (
-                        <PopConfetti lanking={user.lanking} />
-                    )}  */}
-                <p>
-                  <user.medal />
-                </p>
-                <p>{user.nickname}</p>
-                <p>{user.total_score}점</p>
-              </div>
-            ))}
-          </Slider>
-        </SliderWrapper>
+        <Slider {...settings}>
+          {users.map((user) => (
+            <div key={user.lanking}>
+              <p>
+                <user.medal />
+              </p>
+              <p>{user.nickname}</p>
+              <p>{user.total_score}점</p>
+            </div>
+          ))}
+        </Slider>
       </LankingStyle>
       <ButtonStyle>
-        <Link to="/problem" className="goProblemBtn">
-          <Button size="long" scheme="abled" onMouseOver={handleButtonClick} borderRadius="round">
+        <Link to="/problem">
+          <Button
+            size="long"
+            scheme="abled"
+            borderRadius="round"
+            onMouseOver={handleButtonClick}
+            className="goProblemBtn"
+          >
             문제 풀러가기
             <GoArrowRight />
           </Button>
@@ -124,6 +125,7 @@ const LankingStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 
   width: 300px;
   height: 300px;
@@ -139,6 +141,27 @@ const LankingStyle = styled.div`
     gap: 6px;
 
     font-size: 1.5em;
+  }
+
+  .slick-prev,
+  .slick-next {
+    &:before {
+      display: none;
+    }
+  }
+
+  .slick-prev {
+    left: -80px;
+  }
+
+  .slick-next {
+    right: -50px;
+  }
+
+  svg {
+    width: 50px;
+    height: 50px;
+    color: #ff4f4f;
   }
 `;
 
@@ -168,43 +191,17 @@ const LankingTitleStyle = styled.div`
   }
 `;
 
-
-const SliderWrapper = styled.div`
-  position: relative;
-  .slick-prev,
-  .slick-next {
-    &:before {
-      display: none;
-    }
-  }
-
-  .slick-prev {
-    left: -80px;
-  }
-
-  .slick-next {
-    right: -50px;
-  }
-
-  svg {
-    width: 50px;
-    height: 50px;
-    color: #ff4f4f;
-  }
-`;
-
 const ButtonStyle = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   padding-top: 20px;
-
-  .goProblemBtn {
+  
+  a {
     text-decoration: none;
+  }
 
-    svg {
-      margin-left: 6px;
-    }
+  svg {
+    margin-left: 6px;
   }
 `;
 
