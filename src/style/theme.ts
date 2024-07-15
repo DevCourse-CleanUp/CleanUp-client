@@ -116,8 +116,10 @@ const origin: Theme = {
     },
     buttonScheme: {
         abled: {
-            color: "rgba(0, 0, 0, 0.5)",
-            backgroundColor: "rgb(94, 240, 249)",
+            color:"rgba(0, 0, 0, 0.6)",
+            backgroundColor: "#97cf9d",
+            // color: "rgba(0, 0, 0, 0.5)",
+            // backgroundColor: "rgb(94, 240, 249)",
         },
         disabled: {
             color: "white",
@@ -125,7 +127,7 @@ const origin: Theme = {
         },
         clicked: {
             color: "white",
-            backgroundColor: "#ffa6b5",
+            backgroundColor: "#f0442e",
         },
     },
     borderRadius: {
