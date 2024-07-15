@@ -1,6 +1,7 @@
 import { FaRecycle } from "react-icons/fa";
 import styled from "styled-components";
 
+// 쓰레기통 & 쓰레기 3색 
 export const red = "rgb(255, 30, 30)";
 export const green = "rgb(70, 200, 90)";
 export const blue = "rgb(70, 70, 200)";
