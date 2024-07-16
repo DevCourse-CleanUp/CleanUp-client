@@ -5,7 +5,8 @@ import { styled } from "styled-components";
 import { headerHeightState } from "../../atoms/heightAtom";
 import Button from "./Button";
 import { loginState } from "../../atoms/loginAtom";
-import { MdLogout } from "react-icons/md";
+import { MdLogin, MdLogout } from "react-icons/md";
+import { Link, useLocation } from "react-router-dom";
 
 const user = {
   nickname: "김세모",
@@ -17,6 +18,8 @@ const Header = () => {
   const setHeaderHeight = useSetRecoilState(headerHeightState);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isHovered, setIsHovered] = useState(false);
+
+  const location = useLocation();
 
   const logoutHandler = () => {
     setIsLoggedIn(false);
@@ -38,6 +41,8 @@ const Header = () => {
     setIsHovered(false);
   }, [isLoggedIn]);
 
+  const showLoginButton = !isLoggedIn && location.pathname !== "/";
+
   return (
     <HeaderStyle ref={headRef}>
       <div className="left-group">
@@ -57,13 +62,28 @@ const Header = () => {
               onClick={logoutHandler}
               onMouseOver={handleMouseOver}
               onMouseOut={handleMouseOut}
-              className="logoutBtn"
             >
               <MdLogout />
             </Button>
           </div>
         </>
-      ) : null}
+      ) : (
+        showLoginButton && (
+          <div className="right-group-at-logout">
+            <Link to="/">
+              <Button
+                size="medium"
+                scheme={isHovered ? "clicked" : "abled"}
+                onClick={logoutHandler}
+                onMouseOver={handleMouseOver}
+                onMouseOut={handleMouseOut}
+              >
+                <MdLogin />
+              </Button>
+            </Link>
+          </div>
+        )
+      )}
     </HeaderStyle>
   );
 };
@@ -93,7 +113,8 @@ const HeaderStyle = styled.header`
     margin-left: 20px;
   }
 
-  .right-group {
+  .right-group,
+  .right-group-at-logout {
     display: flex;
     align-items: center;
     gap: 30px;
@@ -105,12 +126,6 @@ const HeaderStyle = styled.header`
       gap: 30px;
       display: flex;
       flex-direction: row;
-    }
-
-    .logoutBtn {
-      svg {
-        color: #fff !important;
-      }
     }
   }
 `;
