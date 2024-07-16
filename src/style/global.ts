@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         background-color: ${getTheme().color.secondary};
 
-        /* font-family: 'NeoDunggeunmo', sans-serif; */
+        font-family: 'NeoDunggeunmo', sans-serif;
     }
 
     h1 {

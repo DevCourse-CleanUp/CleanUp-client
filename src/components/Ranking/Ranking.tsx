@@ -17,26 +17,26 @@ import { useRef, useState } from "react";
 
 const users = [
   {
-    lanking: "1",
+    ranking: "1",
     medal: TbHexagonNumber1Filled,
     nickname: "김세모",
     total_score: 5889,
   },
   {
-    lanking: "2",
+    ranking: "2",
     medal: TbHexagonNumber2Filled,
     nickname: "이네모",
     total_score: 4683,
   },
   {
-    lanking: "3",
+    ranking: "3",
     medal: TbHexagonNumber3Filled,
     nickname: "박동그라미",
     total_score: 2889,
   },
 ];
 
-const Lanking = () => {
+const Ranking = () => {
   const [isHovered, setIsHovered] = useState(false);
   const confettiRef = useRef<{ fire: () => void }>(null);
 
@@ -85,7 +85,7 @@ const Lanking = () => {
 
   return (
     <>
-      <LankingTitleStyle>
+      <RankingTitleStyle>
         <div>
           <h2>
             <FaCrown />
@@ -93,12 +93,12 @@ const Lanking = () => {
             <FaCrown />
           </h2>
         </div>
-      </LankingTitleStyle>
+      </RankingTitleStyle>
 
-      <LankingStyle className="neo-font">
+      <RankingStyle className="neo-font">
         <Slider {...settings}>
           {users.map((user) => (
-            <div key={user.lanking}>
+            <div key={user.ranking}>
               <p>
                 <user.medal />
               </p>
@@ -107,9 +107,9 @@ const Lanking = () => {
             </div>
           ))}
         </Slider>
-      </LankingStyle>
+      </RankingStyle>
       <ButtonStyle>
-        <Link to="/problem">
+        <Link to="/problemset">
           <Button
             size="long"
             scheme={isHovered ? "clicked" : "abled"}
@@ -128,7 +128,7 @@ const Lanking = () => {
   );
 };
 
-const LankingStyle = styled.div`
+const RankingStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -139,7 +139,7 @@ const LankingStyle = styled.div`
   margin: auto;
   border-radius: 30%;
   background: pink;
-  font-family: 'NeoDunggeunmo', sans-serif;
+  /* font-family: 'NeoDunggeunmo', sans-serif; */
 
   p {
     display: flex;
@@ -173,7 +173,7 @@ const LankingStyle = styled.div`
   }
 `;
 
-const LankingTitleStyle = styled.div`
+const RankingTitleStyle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -224,4 +224,4 @@ const ButtonStyle = styled.div`
   }
 `;
 
-export default Lanking;
+export default Ranking;
