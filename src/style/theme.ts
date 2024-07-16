@@ -98,6 +98,10 @@ const origin: Theme = {
         medium: {
             fontSize: "1.2rem",
             padding: "0.5rem 1rem",
+            
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
         },
         small: {
             fontSize: "1rem",
