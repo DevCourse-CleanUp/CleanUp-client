@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ProblemHead, { HEIGHT } from "./ProblemHead";
 import ProblemRow from "./ProblemRow";
-import { Problem } from "../../../models/problem.api";
+import { Problem } from "../../../models/problem.model";
 import { useRecoilState } from "recoil";
 import { filterHeightState, footerHeightState, headerHeightState } from "../../../atoms/heightAtom";
 
