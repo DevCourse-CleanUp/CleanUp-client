@@ -5,7 +5,6 @@ import { styled } from "styled-components";
 import { headerHeightState } from "../../atoms/heightAtom";
 import Button from "./Button";
 import { loginState } from "../../atoms/loginAtom";
-import Login from "../../pages/Login";
 import { MdLogout } from "react-icons/md";
 
 const user = {
@@ -24,7 +23,7 @@ const Header = () => {
   };
 
   const handleMouseOver = () => {
-      setIsHovered(true);
+    setIsHovered(true);
   };
 
   const handleMouseOut = () => {
@@ -34,6 +33,10 @@ const Header = () => {
   useEffect(() => {
     setHeaderHeight(headRef.current?.offsetHeight || 0);
   }, []);
+
+  useEffect(() => {
+    setIsHovered(false);
+  }, [isLoggedIn]);
 
   return (
     <HeaderStyle ref={headRef}>
@@ -103,10 +106,8 @@ const HeaderStyle = styled.header`
       display: flex;
       flex-direction: row;
     }
-    
+
     .logoutBtn {
-
-
       svg {
         color: #fff !important;
       }
