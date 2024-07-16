@@ -21,15 +21,6 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
     }
 
-    .canvas {
-        height: 100vh;
-        left: 0px;
-        pointer-events: none;
-        position: fixed;
-        top: 0px;
-        width: 100vw;
-    }   
-
 @font-face {
     font-family: 'NeoDunggeunmo';
         src: url(${neodgmWoff2}) format('woff2'),

@@ -34,6 +34,7 @@ const Footer = () => {
 };
 
 const FooterStyle = styled.footer`
+  /* font-family: 'NeoDunggeunmo', sans-serif; */
   bottom: 0px;
   position: fixed;
   height: 16%;

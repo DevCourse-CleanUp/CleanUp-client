@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import Slider, { CustomArrowProps } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { GoChevronLeft, GoChevronRight, GoArrowRight } from "react-icons/go";
+import { GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { Link } from "react-router-dom";
 import Button from "../common/Button";
 import { FaCrown } from "react-icons/fa";
@@ -49,7 +49,6 @@ const Ranking = () => {
     autoplaySpeed: 2500,
     pauseOnHover: true,
 
-    // afterChange: (current: number) => setCurrentSlide(current),
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
   };
