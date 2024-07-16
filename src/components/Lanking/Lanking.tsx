@@ -1,56 +1,129 @@
 import { styled } from "styled-components";
-import React from "react";
-import Slider from "react-slick";
+import Slider, { CustomArrowProps } from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { GoArrowRight } from "react-icons/go";
+import { GoChevronLeft, GoChevronRight, GoArrowRight } from "react-icons/go";
 import { Link } from "react-router-dom";
+import Button from "../common/Button";
+import { FaCrown } from "react-icons/fa";
+import {
+  TbHexagonNumber1Filled,
+  TbHexagonNumber2Filled,
+  TbHexagonNumber3Filled,
+} from "react-icons/tb";
+import { SiGamebanana } from "react-icons/si";
+import PopConfetti from "./PopConfetti";
+import { useRef, useState } from "react";
+
+const users = [
+  {
+    lanking: "1",
+    medal: TbHexagonNumber1Filled,
+    nickname: "김세모",
+    total_score: 5889,
+  },
+  {
+    lanking: "2",
+    medal: TbHexagonNumber2Filled,
+    nickname: "이네모",
+    total_score: 4683,
+  },
+  {
+    lanking: "3",
+    medal: TbHexagonNumber3Filled,
+    nickname: "박동그라미",
+    total_score: 2889,
+  },
+];
 
 const Lanking = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const confettiRef = useRef<{ fire: () => void }>(null);
+
   const settings = {
-    // dots: true, //갯수 표시 점
-    infinite: true, //무한 캐러셀
-    speed: 100, //다음 컨텐츠까지의 속도
-    slidesToShow: 1, //화면에 보이는 컨텐츠 수
-    slidesToScroll: 1, //스크롤 시 넘어가는 컨텐츠 수
-    centerMode: true, // 현재 컨텐츠 가운데 정렬
-    centerPadding: "10px", // 중앙 컨텐츠 padding 값
-    arrows: true,
+    centerMode: true,
+    infinite: true,
+    centerPadding: "10px",
+    slidesToShow: 1,
     autoplay: true,
+    autoplaySpeed: 2500,
+    pauseOnHover: true,
+
+    // afterChange: (current: number) => setCurrentSlide(current),
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
+
+  function PrevArrow(props: CustomArrowProps) {
+    const { className, onClick } = props;
+    return (
+      <div className={className} onClick={onClick}>
+        <GoChevronLeft style={{ fontSize: "40px", color: "#97cf9d" }} />
+      </div>
+    );
+  }
+
+  function NextArrow(props: CustomArrowProps) {
+    const { className, onClick } = props;
+    return (
+      <div className={className} onClick={onClick}>
+        <GoChevronRight style={{ fontSize: "40px", color: "#97cf9d" }} />
+      </div>
+    );
+  }
+
+  const handleMouseOver = () => {
+    if (confettiRef.current) {
+      confettiRef.current.fire();
+      setIsHovered(true);
+    }
+  };
+
+  const handleMouseOut = () => {
+    setIsHovered(false);
   };
 
   return (
     <>
       <LankingTitleStyle>
         <div>
-          <h2>Lanking</h2>
+          <h2>
+            <FaCrown />
+            Lanking
+            <FaCrown />
+          </h2>
         </div>
       </LankingTitleStyle>
 
-      <LankingStyle>
-        <SliderWrapper>
-          <Slider {...settings}>
-            <div>
-              <p>1위</p>
+      <LankingStyle className="neo-font">
+        <Slider {...settings}>
+          {users.map((user) => (
+            <div key={user.lanking}>
+              <p>
+                <user.medal />
+              </p>
+              <p>{user.nickname}</p>
+              <p>{user.total_score}점</p>
             </div>
-            <div>
-              <p>2위</p>
-            </div>
-            <div>
-              <p>3위</p>
-            </div>
-          </Slider>
-        </SliderWrapper>
+          ))}
+        </Slider>
       </LankingStyle>
       <ButtonStyle>
-        <button>
-          <Link to={``}>
-            문제 풀러가기
-            <GoArrowRight />
-          </Link>
-        </button>
+        <Link to="/problem">
+          <Button
+            size="long"
+            scheme={isHovered ? "clicked" : "abled"}
+            borderRadius="round"
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+            className="goProblemBtn"
+          >
+            <p>Go!</p>
+            <SiGamebanana />
+          </Button>
+        </Link>
       </ButtonStyle>
-      {/* <Button size="medium" scheme="abled" onClick={()=>{}}>문제 풀러가기<GoArrowRight/></Button> */}
+      <PopConfetti ref={confettiRef} />
     </>
   );
 };
@@ -59,44 +132,70 @@ const LankingStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
 
-  background: pink;
-  width: 100%;
+  width: 300px;
   height: 300px;
-  max-width: 300px;
   margin: auto;
+  border-radius: 30%;
+  background: pink;
+  font-family: 'NeoDunggeunmo', sans-serif;
 
   p {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 6px;
+
+    font-size: 1.5em;
+  }
+
+  .slick-prev,
+  .slick-next {
+    &:before {
+      display: none;
+    }
+  }
+
+  .slick-prev {
+    left: -80px;
+  }
+
+  .slick-next {
+    right: -50px;
+  }
+
+  svg {
+    width: 50px;
+    height: 50px;
+    color: #ff4f4f;
   }
 `;
 
 const LankingTitleStyle = styled.div`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px 0 20px 0;
-`;
+  padding: 30px 0 20px 0;
 
-const SliderWrapper = styled.div`
-  position: relative;
-  .slick-prev,
-  .slick-next {
-    // &:before {
-    //   display: none;
-    // }
+  font-family: cursive;
+  color: ${({ theme }) => theme.headerText.default.color};
+  font-size: 25px;
+  font-weight: ${({ theme }) => theme.headerText.default.fontWeight};
+  text-shadow: ${({ theme }) => theme.headerText.default.textShadow};
+
+  h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
   }
 
-  .slick-prev {
-    left: -50px;
-  }
-
-  .slick-next {
-    right: -50px;
+  svg {
+    color: #ffe282;
+    width: 40px;
+    height: 40px;
   }
 `;
 
@@ -105,12 +204,23 @@ const ButtonStyle = styled.div`
   justify-content: center;
   padding-top: 20px;
 
+  p {
+    font-family: cursive;
+    color: ${({ theme }) => theme.headerText.default.color};
+    font-size: 25px;
+    font-weight: ${({ theme }) => theme.headerText.default.fontWeight};
+    text-shadow: ${({ theme }) => theme.headerText.default.textShadow};
+  }
+
   a {
     text-decoration: none;
   }
 
   svg {
     margin-left: 6px;
+    color: #fff;
+    width: 30px;
+    height: 30px;
   }
 `;
 
