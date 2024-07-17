@@ -1,8 +1,19 @@
+import { useEffect, useRef } from "react";
+import { useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
+import { footerHeightState } from "../../atoms/heightAtom";
 
 const Footer = () => {
+  const footRef = useRef<HTMLDivElement>(null);
+  const setFooterHeight = useSetRecoilState(footerHeightState);
+  
+  useEffect(() => {
+    setFooterHeight(footRef.current?.offsetHeight || 0);
+  }, [])
+
+
   return (
-    <FooterStyle>
+    <FooterStyle ref={footRef}>
       <nav>
         <a href="https://github.com/DevCourse-CleanUp">
           CleanUp Project GitHub
@@ -23,12 +34,14 @@ const Footer = () => {
 };
 
 const FooterStyle = styled.footer`
+  /* font-family: 'NeoDunggeunmo', sans-serif; */
   bottom: 0px;
-  position: absolute;
+  position: fixed;
+  height: 16%;
 
   width: 100%;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 20px 0px 10px 0px;
   border-top: 1px solid ${({ theme }) => theme.color.primary};
   background-color: ${({ theme }) => theme.color.thirdary};
 

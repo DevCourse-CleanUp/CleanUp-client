@@ -1,10 +1,7 @@
-/*
-작성일: 2024.07.07
-작성자: 박민혜
-*/
-
 import { styled } from "styled-components";
 import React, { ForwardedRef } from "react";
+import { styled } from 'styled-components';
+import React, { ForwardedRef } from 'react';
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;

@@ -3,9 +3,9 @@ export type HeaderSize = "none" | "small";
 export type HeaderText = "default";
 export type ThemeName = "origin";
 export type HeadingSize = "large" | "medium" | "small";
-export type ButtonSize = "large" | "medium" | "small";
-export type ButtonScheme = "abled" | "disabled";
-export type BorderRadius = "default" | "editor";
+export type ButtonSize = "large" | "medium" | "small" | "long";
+export type ButtonScheme = "abled" | "disabled" | "clicked";
+export type BorderRadius = "default" | "editor" | "round";
 export type TrashColor = "red" | "yellow" | "blue";
 export type TrashState = "clear" | "unclear";
 
@@ -34,6 +34,12 @@ export interface Theme {
         [key in ButtonSize]: {
             fontSize: string;
             padding: string;
+
+            width?: string;
+            height?: string;
+            display?: string;
+            alignItems?: string;
+            justifyContent?: string;
         };
     };
     buttonScheme: {
@@ -87,30 +93,51 @@ const origin: Theme = {
     buttonSize: {
         large: {
             fontSize: "1.5rem",
-            padding: "1rem 2rem"
+            padding: "1rem 2rem",
         },
         medium: {
             fontSize: "1.2rem",
-            padding: "0.5rem 1rem"
+            padding: "0.5rem 1rem",
+            
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
         },
         small: {
             fontSize: "1rem",
             padding: "0.25rem 0.5rem"
         },
+        long: {
+            fontSize: "1.5rem",
+            padding: "0rem",
+            width: "300px",
+            height: "60px",
+
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+        },
     },
     buttonScheme: {
         abled: {
-            color: "rgba(0, 0, 0, 0.5)",
-            backgroundColor: "rgb(94, 240, 249)",
+            color:"rgba(0, 0, 0, 0.6)",
+            backgroundColor: "#97cf9d",
+            // color: "rgba(0, 0, 0, 0.5)",
+            // backgroundColor: "rgb(94, 240, 249)",
         },
         disabled: {
             color: "white",
             backgroundColor: "gray",
         },
+        clicked: {
+            color: "white",
+            backgroundColor: "#f0442e",
+        },
     },
     borderRadius: {
         default: "8px",
-        editor: "4px"
+        editor: "4px",
+        round: "30px",
     }
 }
 
