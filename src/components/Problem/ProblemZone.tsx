@@ -36,7 +36,7 @@ export const ProblemZone = () => {
 };
 
 const ProblemZoneStyle = styled.div`
-  font-family: 'NeoDunggeunmo', sans-serif;
+  /* font-family: 'NeoDunggeunmo', sans-serif; */
   line-height: 1.4;
   
   .stageButton {

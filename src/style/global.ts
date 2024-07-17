@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         background-color: ${getTheme().color.secondary};
 
-        /* font-family: 'NeoDunggeunmo', sans-serif; */
+        font-family: 'NeoDunggeunmo', sans-serif;
     }
 
     h1 {
@@ -20,15 +20,6 @@ export const GlobalStyle = createGlobalStyle`
     h2 {
         margin: 0;
     }
-
-    .canvas {
-        height: 100vh;
-        left: 0px;
-        pointer-events: none;
-        position: fixed;
-        top: 0px;
-        width: 100vw;
-    }   
 
 @font-face {
     font-family: 'NeoDunggeunmo';

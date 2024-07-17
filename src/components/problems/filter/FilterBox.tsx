@@ -81,7 +81,7 @@ interface FilterBoxStyleProps {
 }
 
 const FilterBoxStyle = styled.div<FilterBoxStyleProps>`
-    .filter-div {
+     .filter-div {
         display: flex;
         flex-direction: row;
         margin-left: 37px;

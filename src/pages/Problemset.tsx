@@ -95,8 +95,6 @@ const Problemset = () => {
     )
 }
 
-
-
 const ProblemsetStyle = styled.div`
     display: flex;
     flex-direction: column;
