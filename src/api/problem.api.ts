@@ -1,4 +1,4 @@
-import { ProblemsArray } from "../models/problem.model";
+import { ProblemDetailAnswer, ProblemsArray } from "../models/problem.model";
 import { httpClient } from "./http";
 
 export const fetchProblems = async () => {
@@ -7,7 +7,8 @@ export const fetchProblems = async () => {
   return data;
 };
 
-// export const fetchBook = async (bookId: string) => {
-//   const response = await httpClient.get<BookDetail>(`/books/${bookId}`);
-//   return response.data;
-// };
+export const fetchProblem = async (problemId: number) => {
+  const response = await httpClient.get(`/problemset/${problemId}`);
+  const data: ProblemDetailAnswer = response.data;
+  return data;
+};

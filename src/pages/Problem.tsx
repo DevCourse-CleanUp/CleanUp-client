@@ -3,17 +3,34 @@ import ProblemZone from "../components/Problem/ProblemZone";
 import CodeBoxZone from "../components/Problem/CodeBoxZone";
 import TrashMoveZone from "../components/Problem/TrashMoveZone";
 import Button from "../components/common/Button";
-import { useState } from "react";
-import { useRecoilValue } from "recoil";
+import { fetchProblem } from "../api/problem.api";
+import { useParams } from "react-router-dom";
+import { Problem as IProblem, ProblemDetail} from "../models/problem.model";
+import { useEffect, useState } from "react";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { answerAtom } from "../atoms/problemAtom";
 import { solveAtom } from "../atoms/problemAtom";
 
 export const Problem = () => {
+  const problemId = Number(useParams().id);
+  let [problem, setProblem] = useState<ProblemDetail>();
+  const setAnswer = useSetRecoilState(answerAtom);
+  const getAnswer = useRecoilState(answerAtom);
   const solve = useRecoilValue(solveAtom);
+  
+  useEffect(() => {
+    fetchProblem(problemId).then((res) => {
+      setProblem(res);
+      setAnswer(res.answer);
+    });
+  }, [problemId, setAnswer]);
+
+  if (!problem) return null;
 
   return (
     <ProblemStyle>
       <div className="problemZone">
-        <ProblemZone />
+        <ProblemZone title={problem.title} description={problem.description} />
         <CodeBoxZone />
         <div className="buttonPosition">
           <Button
