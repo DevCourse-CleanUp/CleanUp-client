@@ -52,7 +52,6 @@ const Login = () => {
     onSubmit(data).then(
       () => {
         fetchUser().then((user) => {
-          console.log("여기여기")
           setNickname(user.nickname);
           setTotalScore(user.totalScore);
         });
