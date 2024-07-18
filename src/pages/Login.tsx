@@ -38,26 +38,18 @@ const Login = () => {
            setToken(token);
           setIsLoggedIn(true);
           showAlert("로그인이 완료되었습니다.");
-          
+          fetchUser().then((user) => {
+            setNickname(user.nickname);
+            setTotalScore(user.totalScore);
+          });
+
         }
       },
-      (error) => {
-        showAlert("로그인이 실패했습니다.");
-      }
+        (error) => {
+          showAlert("로그인이 실패했습니다.");
+        }
     );
   };
-
-
-  const getUser = (data: SignProps) => {
-    onSubmit(data).then(
-      () => {
-        fetchUser().then((user) => {
-          setNickname(user.nickname);
-          setTotalScore(user.totalScore);
-        });
-      }
-    )
-  }
 
   return (
     <LoginStyle>
@@ -67,7 +59,7 @@ const Login = () => {
           <h1>Clean Up</h1>
         </div>
         {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-        <form onSubmit={handleSubmit(getUser)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <fieldset className="email">
             <InputBox
               placeholder="이메일"

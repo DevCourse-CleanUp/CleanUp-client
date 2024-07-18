@@ -10,7 +10,6 @@ export const createClient = (config?: AxiosRequestConfig) => {
     headers: {
       Accept: "application/json",
     },
-    withCredentials: true,
     ...config,
   });
 
@@ -18,12 +17,9 @@ export const createClient = (config?: AxiosRequestConfig) => {
     (config) => {
       const token = getToken();
 
-      // token이 null일 수 있으므로 null 체크를 추가합니다.
       if (token) {
         try {
           config.headers.authorization = `Bearer ${token}`;
-          config.headers["Content-Type"] = 'application/json';
-          console.log(config.headers)
         } catch (e) {
           console.error("Failed to parse token:", e);
         }
