@@ -29,25 +29,22 @@ const Login = () => {
 
   const showAlert = useAlert();
 
-  const onSubmit = async (data: SignProps) => {
-    await login(data).then(
+  const onSubmit = (data: SignProps) => {
+    login(data).then(
       (res) => {
         const token = res.headers.authorization;
-        if (res.status === 200) {
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-           setToken(token);
-          setIsLoggedIn(true);
-          showAlert("로그인이 완료되었습니다.");
-          fetchUser().then((user) => {
-            setNickname(user.nickname);
-            setTotalScore(user.totalScore);
-          });
-
-        }
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        setToken(token);
+        setIsLoggedIn(true);
+        showAlert("로그인이 완료되었습니다.");
+        fetchUser().then((user) => {
+          setNickname(user.nickname);
+          setTotalScore(user.totalScore);
+        });
       },
-        (error) => {
-          showAlert("로그인이 실패했습니다.");
-        }
+      (error) => {
+        showAlert("로그인이 실패했습니다.");
+      }
     );
   };
 

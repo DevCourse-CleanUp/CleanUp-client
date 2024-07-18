@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { Problem } from "../../../models/problem.model";
 import { Link } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
 import { FaCheck } from "react-icons/fa";
+import { Problemset } from "../../../hooks/useProblemset";
 
-const ProblemRow = (problem: Problem) => {
+const ProblemRow = (problem: Problemset) => {
   return (
     <ProblemRowStyle $solved={problem.solved}>
       <Link to={`/problem/${problem.id}`}>
