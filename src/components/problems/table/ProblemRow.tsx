@@ -2,11 +2,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { GoDotFill } from "react-icons/go";
 import { FaCheck } from "react-icons/fa";
-import { Problemset } from "../../../hooks/useProblemset";
+import { Problem } from "../../../models/problem.model";
 
-const ProblemRow = (problem: Problemset) => {
+const ProblemRow = (problem: Problem) => {
   return (
-    <ProblemRowStyle $solved={problem.solved}>
+    <ProblemRowStyle solved={problem.solved}>
       <Link to={`/problem/${problem.id}`}>
         <div className="id">{problem.id}</div>
         <div className="title">{problem.title}</div>
@@ -21,7 +21,7 @@ const ProblemRow = (problem: Problemset) => {
 };
 
 interface ProblemRowStyleProps {
-  $solved: boolean;
+  solved?: boolean;
 }
 
 const ProblemRowStyle = styled.div<ProblemRowStyleProps>`
@@ -62,8 +62,8 @@ const ProblemRowStyle = styled.div<ProblemRowStyleProps>`
 
     .solved {
       width: 13%;
-      color: ${({ $solved, theme }) =>
-        $solved ? "Darkturquoise" : theme.color.text1};
+      color: ${({ solved, theme }) =>
+        solved ? "Darkturquoise" : theme.color.text1};
     }
 
     &:hover {

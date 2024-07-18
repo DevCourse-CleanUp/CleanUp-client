@@ -1,14 +1,8 @@
+import { ProblemIds } from "../models/problem.model";
 import { httpClient } from "./http";
 
-interface FetchSolvesResponse {
-  solvedId: number[];
-}
-
 export const fetchSolves = async () => {
-  try {
-    const response = await httpClient.get<FetchSolvesResponse>("/solves");
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+  const response = await httpClient.get("/solves");
+  const data: ProblemIds = response.data;
+  return data;
 };
