@@ -4,67 +4,10 @@ import FilterBox from "../components/problems/filter/FilterBox";
 import ProblemsTable from "../components/problems/table/ProblemsTable";
 import { useSetRecoilState } from "recoil";
 import { filterHeightState } from "../atoms/heightAtom";
-
-const problemset = [
-  {
-    id: 1,
-    title: "개울가에",
-    level: 1,
-    score: 1,
-    solved: true,
-  },
-  {
-    id: 2,
-    title: "올챙이 한 마리",
-    level: 2,
-    score: 2,
-    solved: true,
-  },
-  {
-    id: 3,
-    title: "꼬물꼬물",
-    level: 3,
-    score: 3,
-    solved: false,
-  },
-  {
-    id: 4,
-    title: "헤엄치다",
-    level: 4,
-    score: 4,
-    solved: false,
-  },
-  {
-    id: 5,
-    title: "뒷다리가 쑥",
-    level: 5,
-    score: 5,
-    solved: true,
-  },
-  {
-    id: 6,
-    title: "앞다리가 쑥",
-    level: 2,
-    score: 5,
-    solved: true,
-  },
-  {
-    id: 7,
-    title: "팔딱팔딱",
-    level: 3,
-    score: 4,
-    solved: false,
-  },
-  {
-    id: 8,
-    title: "개구리 됐네",
-    level: 3,
-    score: 8,
-    solved: true,
-  },
-];
+import { useProblemset } from "../hooks/useProblemset";
 
 const Problemset = () => {
+  const { problemset } = useProblemset();
   // 레벨별 필터 기능 위해 레벨 배열 추출
   let problemLevel = problemset.map((problem) => problem.level);
   problemLevel = problemLevel
