@@ -39,6 +39,8 @@ function TrashMoveZone() {
 
         if (checkCollision(rect1, rect2)) {
           setSolve(true);
+        } else {
+          setSolve(false);
         }
       }
     }
