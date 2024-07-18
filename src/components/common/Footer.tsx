@@ -6,11 +6,10 @@ import { footerHeightState } from "../../atoms/heightAtom";
 const Footer = () => {
   const footRef = useRef<HTMLDivElement>(null);
   const setFooterHeight = useSetRecoilState(footerHeightState);
-  
+
   useEffect(() => {
     setFooterHeight(footRef.current?.offsetHeight || 0);
-  }, [])
-
+  }, [setFooterHeight]);
 
   return (
     <FooterStyle ref={footRef}>
@@ -34,7 +33,6 @@ const Footer = () => {
 };
 
 const FooterStyle = styled.footer`
-  /* font-family: 'NeoDunggeunmo', sans-serif; */
   bottom: 0px;
   position: fixed;
   height: 16%;
@@ -50,7 +48,8 @@ const FooterStyle = styled.footer`
     margin: 0 20px 10px 20px;
     color: ${({ theme }) => theme.color.text1};
     font-size: ${({ theme }) => theme.heading.medium.fontSize};
-    font-family: cursive;
+    font-family: "NeoDunggeunmo", sans-serif;
+    text-decoration: none;
   }
 
   p {
@@ -61,7 +60,7 @@ const FooterStyle = styled.footer`
       margin-left: 20px;
       color: ${({ theme }) => theme.color.text2};
       font-size: ${({ theme }) => theme.heading.small.fontSize};
-      font-family: fantasy;
+      font-family: "NeoDunggeunmo", sans-serif;
     }
   }
 `;

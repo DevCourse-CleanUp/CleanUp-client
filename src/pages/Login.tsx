@@ -7,27 +7,47 @@ import { FcFullTrash } from "react-icons/fc";
 import { useSetRecoilState } from "recoil";
 import { loginState } from "../atoms/loginAtom";
 import { useAlert } from "../hooks/useAlert";
+import { login } from "../api/auth.api";
+import { setToken } from "../store/authStore";
+import { fetchUser } from "../api/user.api";
+import { nicknameAtom } from "../atoms/nicknameAtom";
+import { totalScoreAtom } from "../atoms/totalScoreAtom";
+import axios from "axios";
 
-interface LoginProps {
+export interface SignProps {
+  nickname: string;
   email: string;
   password: string;
 }
 
 const Login = () => {
   const setIsLoggedIn = useSetRecoilState(loginState);
-  const { register, handleSubmit, watch } = useForm<LoginProps>();
+  const { register, handleSubmit, watch } = useForm<SignProps>();
+
+  const setNickname = useSetRecoilState(nicknameAtom);
+  const setTotalScore = useSetRecoilState(totalScoreAtom);
 
   const showAlert = useAlert();
 
-  const onSubmit = (data: LoginProps) => {
-    const email = localStorage.getItem("email");
-    const password = localStorage.getItem("password");
-
-    if (email === data.email && password === data.password) {
-      setIsLoggedIn(true);
-    } else {
-      showAlert("잘못된 계정입니다.");
-    }
+  const onSubmit = (data: SignProps) => {
+    login(data).then(
+      (res) => {
+        const token = res.headers.authorization;
+        if (res.status === 200) {
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          setToken(token);
+          setIsLoggedIn(true);
+          showAlert("로그인이 완료되었습니다.");
+          fetchUser().then((user) => {
+            setNickname(user.nickname);
+            setTotalScore(user.totalScore);
+          });
+        }
+      },
+      (error) => {
+        showAlert("로그인이 실패했습니다.");
+      }
+    );
   };
 
   return (

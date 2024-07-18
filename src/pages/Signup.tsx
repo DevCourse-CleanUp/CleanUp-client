@@ -4,8 +4,9 @@ import Button from "../components/common/Button";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAlert } from "../hooks/useAlert";
+import { signup } from "../api/auth.api";
 
-export interface SignupProps {
+export interface SignProps {
   nickname: string;
   email: string;
   password: string;
@@ -20,14 +21,13 @@ const Signup = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<SignupProps>();
+  } = useForm<SignProps>();
 
-  const onSubmit = (data: SignupProps) => {
-    localStorage.setItem("nickname", data.nickname);
-    localStorage.setItem("email", data.email);
-    localStorage.setItem("password", data.password);
-    showAlert("회원가입이 완료되었습니다.");
-    navigate("/");
+  const onSubmit = (data: SignProps) => {
+    signup(data).then((res) => {
+      showAlert("회원가입이 완료되었습니다.");
+      navigate("/");
+    });
   };
 
   return (

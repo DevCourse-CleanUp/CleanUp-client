@@ -33,10 +33,10 @@ const router = createBrowserRouter([
       <Layout>
         <Problemset />
       </Layout>
-    )
+    ),
   },
   {
-    path: "/problem",
+    path: "/problem/:id",
     element: (
       <Layout>
         <Problem />
