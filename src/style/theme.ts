@@ -98,8 +98,8 @@ const origin: Theme = {
   },
   buttonSize: {
     large: {
-      fontSize: "1.5rem",
-      padding: "1rem 2rem",
+      fontSize: "1.3rem",
+      padding: "1rem 1rem",
     },
     medium: {
       fontSize: "1.2rem",
