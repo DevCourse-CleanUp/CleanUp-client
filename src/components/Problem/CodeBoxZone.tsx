@@ -1,62 +1,36 @@
-import { styled } from 'styled-components';
-import InputTextArea from '../common/InputTextArea';
-import Button from '../common/Button';
+import React, { useEffect, useRef } from "react";
+import { useCodeMirror } from "@uiw/react-codemirror";
+import { css } from "@codemirror/lang-css";
+import { useRecoilState } from "recoil";
+import { codeAtom } from "../../atoms/problemAtom";
 
-export const CodeBoxZone= () => {
-  return (
-    <CodeBoxZoneStyle>
-         <div className="inputCodeBox">
-          <p>#pond &#123;</p>
-          <div>
-            <p>display: flex;</p>
-            <StyledInputBox>{/* <p>{problem.answer}</p> */}</StyledInputBox>
-          </div>
-          <p>&#125;</p>
+export const CodeBoxZone = () => {
+  const [code, setCode] = useRecoilState(codeAtom);
+  const editorRef = useRef<HTMLDivElement>(null);
 
-          <Button size="medium" scheme="abled">
-            다음
-          </Button>
-        </div>
-    </CodeBoxZoneStyle>
-  );
-}
+  // CodeMirror 설정 및 초기화
+  const { setContainer } = useCodeMirror({
+    container: editorRef.current,
+    value: code,
+    extensions: [
+      css(), // CSS 구문 강조 모드
+    ],
+    onChange: (value) => {
+      setCode(value); // 코드 변경 시 상태 업데이트
+    },
+  });
 
-const CodeBoxZoneStyle = styled.div`
-    .inputCodeBox {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      border-radius: 5px;
-      background: grey;
-      padding: 0px 20px;
-      color: #fff;
-
-      div {
-        width: 93%;
-      }
-
-      p {
-        align-self: flex-start;
-        margin: 10px 0px 10px 0px;
-      }
-
-      Button {
-        align-self: flex-end;
-        margin: 0px 0px 20px 20px;
-        background: coral;
-        color: #fff;
-      }
+  // 컴포넌트가 마운트될 때 한 번 실행됨
+  useEffect(() => {
+    if (editorRef.current) {
+      setContainer(editorRef.current); // 에디터를 DOM 요소에 설정
     }
-`;
-
-const StyledInputBox = styled(InputTextArea)`
-  display: flex;
-  width: 100%;
-  padding: 0px;
-
-  box-sizing: border-box; /*요소의 전체 너비와 높이에 패딩과 테두리가 포함되어 있는지 확인*/
-`;
+  }, [setContainer]);
+  return (
+    <div>
+      <div ref={editorRef} />
+    </div>
+  );
+};
 
 export default CodeBoxZone;

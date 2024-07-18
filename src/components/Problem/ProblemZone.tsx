@@ -1,6 +1,4 @@
 import { styled } from "styled-components";
-import { GoChevronLeft, GoChevronRight } from "react-icons/go";
-import Button from "../common/Button";
 
 const problem = {
   id: 1,
@@ -18,15 +16,6 @@ export const ProblemZone = () => {
       <div className="problemZone">
         <div className="title">
           <h2 className="title">{problem.title}</h2>
-          <div className="stageButton">
-            <Button size="small" scheme="abled">
-              <GoChevronLeft />
-            </Button>
-            <p>&nbsp;&nbsp; 단계 1 of 100 &nbsp;&nbsp;</p>
-            <Button size="small" scheme="abled">
-              <GoChevronRight />
-            </Button>
-          </div>
         </div>
 
         <p className="content">{problem.content}</p>
@@ -38,7 +27,7 @@ export const ProblemZone = () => {
 const ProblemZoneStyle = styled.div`
   /* font-family: 'NeoDunggeunmo', sans-serif; */
   line-height: 1.4;
-  
+
   .stageButton {
     display: inline-flex;
     width: auto;

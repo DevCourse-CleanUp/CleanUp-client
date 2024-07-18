@@ -1,28 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import { FcFullTrash } from "react-icons/fc";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import { headerHeightState } from "../../atoms/heightAtom";
 import Button from "./Button";
 import { loginState } from "../../atoms/loginAtom";
-import { MdLogin, MdLogout } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
-
-const user = {
-  nickname: "김세모",
-  total_score: 5889,
-};
+import { MdLogout } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { removeToken } from "../../store/authStore";
+import { nicknameAtom } from "../../atoms/nicknameAtom";
+import { totalScoreAtom } from "../../atoms/totalScoreAtom";
 
 const Header = () => {
   const headRef = useRef<HTMLHeadElement>(null);
   const setHeaderHeight = useSetRecoilState(headerHeightState);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
   const [isHovered, setIsHovered] = useState(false);
+  const nickname = useRecoilValue(nicknameAtom);
+  const totalScore = useRecoilValue(totalScoreAtom);
 
-  const location = useLocation();
+  const navigate = useNavigate();
 
   const logoutHandler = () => {
     setIsLoggedIn(false);
+    removeToken();
+    navigate("/");
   };
 
   const handleMouseOver = () => {
@@ -35,26 +37,24 @@ const Header = () => {
 
   useEffect(() => {
     setHeaderHeight(headRef.current?.offsetHeight || 0);
-  }, []);
+  }, [setHeaderHeight]);
 
   useEffect(() => {
     setIsHovered(false);
   }, [isLoggedIn]);
 
-  const showLoginButton = !isLoggedIn && location.pathname !== "/";
-
   return (
     <HeaderStyle ref={headRef}>
       <div className="left-group">
         <FcFullTrash size="70" />
-        <h1>Clean Up</h1>
+        <h1>Clean up</h1>
       </div>
-      {isLoggedIn ? (
+      {isLoggedIn && (
         <>
           <div className="right-group">
             <div className="userNav">
-              <p>{user.nickname}</p>
-              <p>{user.total_score}</p>
+              <p>{nickname}</p>
+              <p>{totalScore}</p>
             </div>
             <Button
               size="medium"
@@ -67,22 +67,6 @@ const Header = () => {
             </Button>
           </div>
         </>
-      ) : (
-        showLoginButton && (
-          <div className="right-group-at-logout">
-            <Link to="/">
-              <Button
-                size="medium"
-                scheme={isHovered ? "clicked" : "abled"}
-                onClick={logoutHandler}
-                onMouseOver={handleMouseOver}
-                onMouseOut={handleMouseOut}
-              >
-                <MdLogin />
-              </Button>
-            </Link>
-          </div>
-        )
       )}
     </HeaderStyle>
   );
@@ -98,6 +82,9 @@ const HeaderStyle = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.color.primary};
   background-color: ${({ theme }) => theme.color.thirdary};
 
+  a {
+    text-decoration: none;
+  }
   .left-group {
     display: flex;
     justify-content: end;
@@ -109,7 +96,7 @@ const HeaderStyle = styled.header`
     font-size: ${({ theme }) => theme.headerText.default.fontSize};
     font-weight: ${({ theme }) => theme.headerText.default.fontWeight};
     text-shadow: ${({ theme }) => theme.headerText.default.textShadow};
-    font-family: cursive;
+    font-family: "NeoDunggeunmo", sans-serif;
     margin-left: 20px;
   }
 
