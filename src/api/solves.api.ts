@@ -6,3 +6,13 @@ export const fetchSolves = async () => {
   const data: ProblemIds = response.data;
   return data;
 };
+
+export const addScore = async() => {
+    const response = await httpClient.put("/solves")
+    return response.data;
+}
+
+export const fetchSolved = async(problemId) => {
+    const response = await httpClient.post(`/solves/:${problemId}`);
+    return response.data;
+}
