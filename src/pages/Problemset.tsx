@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { useEffect, useRef, useState } from "react";
 import FilterBox from "../components/problems/filter/FilterBox";
 import ProblemsTable from "../components/problems/table/ProblemsTable";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { filterHeightState } from "../atoms/heightAtom";
-import { useProblemset } from "../hooks/useProblemset";
+import { problemsetAtom } from "../atoms/problemAtom";
 
 const Problemset = () => {
-  const { problemset } = useProblemset();
+  const problemset = useRecoilValue(problemsetAtom);
   // 레벨별 필터 기능 위해 레벨 배열 추출
   let problemLevel = problemset.map((problem) => problem.level);
   problemLevel = problemLevel

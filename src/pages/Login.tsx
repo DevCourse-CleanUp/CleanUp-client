@@ -13,6 +13,8 @@ import { fetchUser } from "../api/user.api";
 import { nicknameAtom } from "../atoms/nicknameAtom";
 import { totalScoreAtom } from "../atoms/totalScoreAtom";
 import axios from "axios";
+import { problemsetAtom } from "../atoms/problemAtom";
+import { fetchData } from "../hooks/useProblemset";
 
 export interface SignProps {
   nickname: string;
@@ -26,6 +28,7 @@ const Login = () => {
 
   const setNickname = useSetRecoilState(nicknameAtom);
   const setTotalScore = useSetRecoilState(totalScoreAtom);
+  const setProblemset = useSetRecoilState(problemsetAtom);
 
   const showAlert = useAlert();
 
@@ -41,6 +44,7 @@ const Login = () => {
           setNickname(user.nickname);
           setTotalScore(user.totalScore);
         });
+        fetchData(setProblemset);
       },
       (error) => {
         showAlert("로그인이 실패했습니다.");

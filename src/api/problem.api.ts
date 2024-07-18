@@ -1,16 +1,10 @@
-import { Problem } from "../models/problem.model";
+import { ProblemsArray } from "../models/problem.model";
 import { httpClient } from "./http";
 
-interface FetchProblemResponse {
-  map(
-    arg0: (problem: { id: number }) => { solved: boolean; id: number }
-  ): unknown;
-  problemset: Problem[];
-}
-
 export const fetchProblems = async () => {
-  const response = await httpClient.get<FetchProblemResponse>("/problemset");
-  return response.data;
+  const response = await httpClient.get("/problemset");
+  const data: ProblemsArray = response.data;
+  return data;
 };
 
 // export const fetchBook = async (bookId: string) => {

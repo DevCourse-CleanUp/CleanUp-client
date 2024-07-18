@@ -7,10 +7,10 @@ import {
   footerHeightState,
   headerHeightState,
 } from "../../../atoms/heightAtom";
-import { Problemset } from "../../../hooks/useProblemset";
+import { ProblemsArray } from "../../../models/problem.model";
 
 interface ProblemsTableProps {
-  problemset: Problemset[];
+  problemset: ProblemsArray;
   showFilter: number[];
   notSolvedOnly: boolean;
   toggleFilter: boolean;
