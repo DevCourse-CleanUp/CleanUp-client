@@ -18,7 +18,6 @@ export const Problem = () => {
   useEffect(() => {
     fetchProblem(problemId).then((res) => {
       setProblem(res);
-      console.log("here");
       setAnswer(res.answer);
     });
   }, [problemId, setAnswer]);
