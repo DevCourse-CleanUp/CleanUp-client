@@ -28,7 +28,6 @@ export const createClient = (config?: AxiosRequestConfig) => {
       return config;
     },
     (error: AxiosError) => {
-      console.log("Request error", error);
       return Promise.reject(error);
     }
   );
@@ -39,13 +38,7 @@ export const createClient = (config?: AxiosRequestConfig) => {
       if (error.response && error.response.status === 401) {
         localStorage.removeItem("token");
         window.location.href = "/";
-        console.log("서버 응답 경우", error.message);
-      } else if (error.request) {
-        console.log("Network error: No response received", error.request);
-      } else {
-        console.log("다른 에러", error.message);
       }
-      console.log("error config", error.config);
       return Promise.reject(error);
     }
   );

@@ -42,7 +42,7 @@ const Login = () => {
         showAlert("로그인이 완료되었습니다.");
         fetchUser().then((user) => {
           setNickname(user.nickname);
-          setTotalScore(user.totalScore);
+          setTotalScore(user.total_score);
         });
         fetchData(setProblemset);
       },

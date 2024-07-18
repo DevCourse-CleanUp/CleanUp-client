@@ -1,17 +1,7 @@
 import { styled } from "styled-components";
-import { Problem, ProblemDetail } from "../../models/problem.model";
+import { ProblemDetail } from "../../models/problem.model";
 
-// const problem = {
-//   id: 1,
-//   title: "쓰레기통",
-//   content:
-//     "쓰레기들이 쓰레기통 안으로 이동할 수 있도록 도와주세요. 이번에는 아무거나 사용하세요. 이 CSS 속성은 다음의 값들을 인자로 받아 컨테이너 안에서 요소들이 정렬해야 할 방향을 지정합니다. 쓰레기통 안에 쓰레기를 넣으세요. 쓰레기들이 쓰레기통 안으로 이동할 수 있도록 도와주세요. 이번에는 아무거나 사용하세요. 이 CSS 속성은 다음의 값들을 인자로 받아 컨테이너 안에서 요소들이 정렬해야 할 방향을 지정합니다. 쓰레기통 안에 쓰레기를 넣으세요. 쓰레기들이 쓰레기통 안으로 이동할 수 있도록 도와주세요. 이번에는 아무거나 사용하세요. 이 CSS 속성은 다음의 값들을 인자로 받아 컨테이너 안에서 요소들이 정렬해야 할 방향을 지정합니다. 쓰레기통 안에 쓰레기를 넣으세요. ",
-//   answer: "쓰레기통",
-//   level: 123,
-//   score: 9999,
-// };
-
-export const ProblemZone = ({title, description}: ProblemDetail) => {
+export const ProblemZone = ({ title, description }: ProblemDetail) => {
   return (
     <ProblemZoneStyle>
       <div className="problemZone">
@@ -26,32 +16,7 @@ export const ProblemZone = ({title, description}: ProblemDetail) => {
 };
 
 const ProblemZoneStyle = styled.div`
-  /* font-family: 'NeoDunggeunmo', sans-serif; */
   line-height: 1.4;
-
-  .stageButton {
-    display: inline-flex;
-    width: auto;
-    background: #97cf9d;
-    margin-right: 10px;
-
-    p,
-    svg {
-      display: flex;
-      align-items: center;
-      margin: 0px;
-
-      background: #97cf9d;
-    }
-
-    p {
-      color: grey;
-    }
-
-    svg {
-      color: #fff;
-    }
-  }
 
   .title {
     display: flex;
@@ -67,7 +32,6 @@ const ProblemZoneStyle = styled.div`
     text-align: justify;
     padding: 10px;
   }
-  /* } */
 `;
 
 export default ProblemZone;

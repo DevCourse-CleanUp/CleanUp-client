@@ -19,4 +19,5 @@ export interface ProblemDetail {
 
 export interface ProblemDetailAnswer extends ProblemDetail {
   answer: string;
+  score: number;
 }

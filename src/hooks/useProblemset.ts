@@ -12,8 +12,7 @@ export const fetchData = async (
 
     // 문제 목록을 가져와서 solvedId를 활용해 solved 속성을 추가
     const problemsArray = await fetchProblems();
-    console.log(solvedIds);
-    console.log(problemsArray);
+
     problemsArray.forEach((problem) => {
       problem.solved = solvedIds.includes(problem.id);
     });

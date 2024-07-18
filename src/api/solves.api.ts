@@ -7,12 +7,12 @@ export const fetchSolves = async () => {
   return data;
 };
 
-export const addScore = async() => {
-    const response = await httpClient.put("/solves")
-    return response.data;
-}
+export const addScore = async () => {
+  const response = await httpClient.put("/solves");
+  return response.data;
+};
 
-export const fetchSolved = async(problemId) => {
-    const response = await httpClient.post(`/solves/:${problemId}`);
-    return response.data;
-}
+export const fetchSolved = async (problemId: Number) => {
+  const response = await httpClient.post(`/solves?problem_id=${problemId}`);
+  return response;
+};
