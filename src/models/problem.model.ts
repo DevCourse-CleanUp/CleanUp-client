@@ -9,4 +9,14 @@ export interface Problem {
   score: number;
   solved?: boolean;
 }
+
 export type ProblemsArray = Problem[];
+
+export interface ProblemDetail {
+  title: string;
+  description: string;
+}
+
+export interface ProblemDetailAnswer extends ProblemDetail {
+  answer: string;
+}
