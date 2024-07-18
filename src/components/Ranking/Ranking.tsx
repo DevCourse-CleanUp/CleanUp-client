@@ -88,7 +88,7 @@ const Ranking = () => {
         <div>
           <h2>
             <FaCrown />
-            Lanking
+            Ranking
             <FaCrown />
           </h2>
         </div>

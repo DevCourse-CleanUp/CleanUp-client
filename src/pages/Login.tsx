@@ -29,19 +29,16 @@ const Login = () => {
 
   const showAlert = useAlert();
 
-  const onSubmit = (data: SignProps) => {
-    login(data).then(
+  const onSubmit = async (data: SignProps) => {
+    await login(data).then(
       (res) => {
         const token = res.headers.authorization;
         if (res.status === 200) {
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          setToken(token);
+           setToken(token);
           setIsLoggedIn(true);
           showAlert("로그인이 완료되었습니다.");
-          fetchUser().then((user) => {
-            setNickname(user.nickname);
-            setTotalScore(user.totalScore);
-          });
+          
         }
       },
       (error) => {
@@ -50,6 +47,19 @@ const Login = () => {
     );
   };
 
+
+  const getUser = (data: SignProps) => {
+    onSubmit(data).then(
+      () => {
+        fetchUser().then((user) => {
+          console.log("여기여기")
+          setNickname(user.nickname);
+          setTotalScore(user.totalScore);
+        });
+      }
+    )
+  }
+
   return (
     <LoginStyle>
       <div className="container">
@@ -57,7 +67,8 @@ const Login = () => {
           <FcFullTrash size="200" />
           <h1>Clean Up</h1>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+        <form onSubmit={handleSubmit(getUser)}>
           <fieldset className="email">
             <InputBox
               placeholder="이메일"
