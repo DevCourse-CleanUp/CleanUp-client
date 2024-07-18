@@ -27,10 +27,8 @@ function TrashMoveZone() {
   useEffect(() => {
     if (previewRef.current && answerRef.current) {
       previewRef.current.innerHTML = `<style>.example${code}</style><div class="example"><img width=100 height=100 style="position: absolute" src=${Trash} alt="circle" /></div>`;
-      answerRef.current.innerHTML = `<style>.answer{${answer}}</style><div class="answer"><img width=100 height=100 src=${TrashCan} alt="rectangle" /></div>`;
-
-      // 이미지 요소 가져오기
       const previewImage = previewRef.current.querySelector("img");
+      answerRef.current.innerHTML = `<style>.answer{${answer}}</style><div class="answer"><img width=100 height=100 src=${TrashCan} alt="rectangle" /></div>`;
       const answerImage = answerRef.current.querySelector("img");
 
       if (previewImage && answerImage) {

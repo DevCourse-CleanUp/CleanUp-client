@@ -13,32 +13,23 @@ import {
 } from "react-icons/tb";
 import { SiGamebanana } from "react-icons/si";
 import PopConfetti from "./PopConfetti";
-import { useRef, useState } from "react";
-
-const users = [
-  {
-    ranking: "1",
-    medal: TbHexagonNumber1Filled,
-    nickname: "김세모",
-    total_score: 5889,
-  },
-  {
-    ranking: "2",
-    medal: TbHexagonNumber2Filled,
-    nickname: "이네모",
-    total_score: 4683,
-  },
-  {
-    ranking: "3",
-    medal: TbHexagonNumber3Filled,
-    nickname: "박동그라미",
-    total_score: 2889,
-  },
-];
+import { useEffect, useRef, useState } from "react";
+import { fetchRanking } from "../../api/ranking.api";
+import { rankingArray } from "../../models/ranking.model";
 
 const Ranking = () => {
   const [isHovered, setIsHovered] = useState(false);
   const confettiRef = useRef<{ fire: () => void }>(null);
+  const [users, setUsers] = useState<rankingArray>([]);
+
+  useEffect(() => {
+    fetchRanking().then((res) => {
+      res[0].medal = TbHexagonNumber1Filled;
+      res[1].medal = TbHexagonNumber2Filled;
+      res[2].medal = TbHexagonNumber3Filled;
+      setUsers(res);
+    });
+  }, []);
 
   const settings = {
     centerMode: true,
@@ -96,11 +87,9 @@ const Ranking = () => {
 
       <RankingStyle className="neo-font">
         <Slider {...settings}>
-          {users.map((user) => (
-            <div key={user.ranking}>
-              <p>
-                <user.medal />
-              </p>
+          {users.map((user, index) => (
+            <div key={index + 1}>
+              <p>{user.medal && <user.medal />}</p>
               <p>{user.nickname}</p>
               <p>{user.total_score}점</p>
             </div>

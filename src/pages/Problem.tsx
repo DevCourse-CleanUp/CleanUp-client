@@ -4,26 +4,50 @@ import CodeBoxZone from "../components/Problem/CodeBoxZone";
 import TrashMoveZone from "../components/Problem/TrashMoveZone";
 import Button from "../components/common/Button";
 import { fetchProblem } from "../api/problem.api";
-import { useParams } from "react-router-dom";
-import { Problem as IProblem, ProblemDetail} from "../models/problem.model";
+import { useNavigate, useParams } from "react-router-dom";
+import { ProblemDetail } from "../models/problem.model";
 import { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
-import { answerAtom } from "../atoms/problemAtom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { answerAtom, codeAtom, problemsetAtom } from "../atoms/problemAtom";
 import { solveAtom } from "../atoms/problemAtom";
+import { addScore, fetchSolved } from "../api/solves.api";
+import { fetchData } from "../hooks/useProblemset";
+import { useAlert } from "../hooks/useAlert";
+import { totalScoreAtom } from "../atoms/totalScoreAtom";
 
 export const Problem = () => {
   const problemId = Number(useParams().id);
+  const navigate = useNavigate();
   let [problem, setProblem] = useState<ProblemDetail>();
   const setAnswer = useSetRecoilState(answerAtom);
-  const getAnswer = useRecoilState(answerAtom);
-  const solve = useRecoilValue(solveAtom);
-  
+  const [solve, setSolve] = useRecoilState(solveAtom);
+  const setProblemset = useSetRecoilState(problemsetAtom);
+  const showAlert = useAlert();
+  const [totalScore, setTotalScore] = useRecoilState(totalScoreAtom);
+  const [score, setScore] = useState<number>(0);
+  const setCode = useSetRecoilState(codeAtom);
+
   useEffect(() => {
     fetchProblem(problemId).then((res) => {
       setProblem(res);
       setAnswer(res.answer);
+      setScore(res.score);
     });
   }, [problemId, setAnswer]);
+
+  const solveClickHandler = () => {
+    if (solve) {
+      fetchSolved(problemId).then(() => {
+        fetchData(setProblemset);
+      });
+      addScore();
+      setTotalScore(totalScore + score);
+      setCode("");
+      showAlert("문제 해결");
+      navigate("/problemset");
+      setSolve(false);
+    }
+  };
 
   if (!problem) return null;
 
@@ -37,6 +61,7 @@ export const Problem = () => {
             size="medium"
             scheme={solve ? "clicked" : "abled"}
             borderRadius="round"
+            onClick={solveClickHandler}
           >
             성공
           </Button>
